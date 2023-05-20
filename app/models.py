@@ -8,3 +8,13 @@ class Categoria(models.Model):
 class Marca(models.Model):
     id_marca=models.AutoField(primary_key=True, null=False)
     nom_marca=models.CharField(max_length=50, null=False)
+    
+class Producto(models.Model):
+    id_producto = models.AutoField(primary_key= True, null=False)
+    nom_producto = models.CharField(max_length=50, null=False)
+    precio = models.IntegerField(null=False)
+    descripcion = models.TextField(max_length=300, null=False)
+    stock = models.IntegerField(null=False)
+    categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
+    marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    

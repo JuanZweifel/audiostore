@@ -1,6 +1,7 @@
 from django.contrib import admin
 from app.models import Categoria
 from app.models import Marca
+from app.models import Producto
 
 # Register your models here.
 
@@ -15,6 +16,14 @@ class admMarca(admin.ModelAdmin):
     list_editable=["nom_marca"]
     class meta:
         model=Marca
+        
+        
+class amdProducto(admin.ModelAdmin):
+    list_display=["id_producto", "nom_producto", "precio", "descripcion", "stock", "categoria", "marca"]
+    list_editable=["nom_producto", "precio", "descripcion", "stock", "categoria", "marca"]
+    class meta:
+        model=Producto
 
 admin.site.register(Categoria, admCategoria)
 admin.site.register(Marca, admMarca)
+admin.site.register(Producto, amdProducto)
