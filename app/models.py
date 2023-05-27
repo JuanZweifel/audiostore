@@ -8,6 +8,9 @@ class Categoria(models.Model):
 class Marca(models.Model):
     id_marca=models.AutoField(primary_key=True, null=False)
     nom_marca=models.CharField(max_length=50, null=False)
+
+    def __str__(self):
+        return self.nom_marca
     
 class Producto(models.Model):
     id_producto = models.AutoField(primary_key= True, null=False)

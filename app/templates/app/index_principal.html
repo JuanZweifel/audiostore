@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome 5 Icons-->
+    <script src="https://kit.fontawesome.com/19e0d6ad15.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <!-- inicio barra de menu -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary nav fixed-top">
+        <div class="container-fluid">
+            <div class="d-flex" style="padding-left: 2%; padding-right: 2%; color: white;">
+                <a class="navbar-brand" href="index_principal.html">
+                    <i class="fa-solid fa-house fa-xl"></i>
+                </a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation" style="background-color: aliceblue;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <div class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <a class="navbar-brand" aria-current="page" href="login.html">Logear</a>
+                    <a class="navbar-brand" aria-current="page" href="{% url 'categoria' %}">Productos</a>
+                    <a class="navbar-brand" aria-current="page" href="usuario.html">Cuenta</a>
+
+                </div>
+
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+                    <button class="btn btn-outline-success"
+                        style="color: white; background-color:#AA77FF; border-color:white; "
+                        type="submit">Search</button>
+                </form>
+
+                <a class="celular navbar-brand" href="carroCompra.html" style="margin-left: 2%;">
+                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
+                    <p>Carro de compra</p>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+    <!-- ----------------------------------------------------------------------- -->
+
+    <!-- galeria de imagenes en carrusel -->
+
+    <!-- Carousel -->
+    <div id="demo" class="carousel slide divcarrusel" data-bs-ride="carousel">
+
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+        </div>
+
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/INDEX.JPG" alt="Los Angeles" class="d-block" style="width:100%">
+                <div class="carousel-caption">
+                    <h3>Los Angeles</h3>
+                    <p>We had such a great time in LA!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/INDEX2.jpg" alt="Chicago" class="d-block" style="width:100%">
+                <div class="carousel-caption">
+                    <h3>Chicago</h3>
+                    <p>Thank you, Chicago!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/INDEX.JPG" alt="New York" class="d-block" style="width:100%">
+                <div class="carousel-caption">
+                    <h3>New York</h3>
+                    <p>We love the Big Apple!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+    <!-- ------------------------------------------------------------------------------------- -->
+
+    <!-- inicio de la card -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card mt-sm-4 mt-2">
+                        <img class="card-img-top" src="img/productos/esiset.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Esi</h4>
+                            <p class="card-text">Interfaz Esi U22Xt Set Si, Set
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card mt-sm-4 mt-2">
+                        <img class="card-img-top" src="img/productos/EsiU22XT.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Esi</h4>
+                            <p class="card-text">Interfaz Esi U22XT 2
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card mt-sm-4 mt-2">
+                        <img class="card-img-top" src="img/productos/M-AudioAir192.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">M Audio</h4>
+                            <p class="card-text">Interfaz M-Audio Air192/4
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card my-sm-4 mt-2">
+                        <img class="card-img-top" src="img/productos/SKPSpeakon.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">SKP</h4>
+                            <p class="card-text">Cable Parlante SKP Speakon Macho
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------------------------------- -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card mt-sm-4 mt-2 my-lg-5">
+                        <img class="card-img-top" src="img/productos/Soundcraft5x1.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Soundcraft</h4>
+                            <p class="card-text">Mixer/Interfaz Soundcraft 5x1
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card mt-sm-4 mt-2 my-lg-5">
+                        <img class="card-img-top" src="img/productos/esiset.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Esi</h4>
+                            <p class="card-text">Interfaz Esi U22Xt Set Si, Set
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card mt-sm-4 mt-2 my-lg-5">
+                        <img class="card-img-top" src="img/productos/EsiU22XT.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Esi</h4>
+                            <p class="card-text">Interfaz Esi U22XT 2
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="producto.html" class="linkdiv">
+                    <div class="card my-2 my-lg-5">
+                        <img class="card-img-top" src="img/productos/M-AudioAir192.png" alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">M Audio</h4>
+                            <p class="card-text">Interfaz M-Audio Air192/4
+                            </p>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="estilofooter mt-auto">
+        <p class="mt-3">Siguenos en
+            <i class="fa-brands fa-instagram fa-xl"></i>
+            <i class="fa-brands fa-facebook fa-xl"></i>
+            <i class="fa-brands fa-twitter fa-xl"></i>
+            <br>
+            Powered by &copy;Audio 2023
+        </p>
+    </footer>
+    <!-- ------------------------------------------------------------------------------------------------ -->
+
+
+</body>
+
+</html>
