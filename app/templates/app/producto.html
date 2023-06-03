@@ -19,9 +19,9 @@
 {% block body %}
     <section>
         <div class="oculto">
-            <h2>{{prod.nom_producto}}</h2>
+            <h2>{{producto_det.nom_producto}}</h2>
             <br>
-            <h5>Mixer/Interfaz</h5>
+            <h5>{{producto_det.categoria}}</h5>
         </div>
 
         <div class="container-fluid margenbarramenu">
@@ -74,13 +74,13 @@
                 <div class="col-5" style="order: 1;">
                     <div class="derecha">
                         <div class="oculto2">
-                            <h2>{{nom_producto}}</h2>
+                            <h2>{{producto_det.nom_producto}}</h2>
                             <br>
-                            <h5>Mixer/Interfaz</h5>
+                            <h5>{{producto_det.categoria}}</h5>
                         </div>
 
                         <div class="precio">
-                            <label for="precio" class="label-precio" id="precio">$129.990</label>
+                            <label for="precio" class="label-precio" id="precio">${{producto_det.precio}}</label>
 
                             <div class="  divcant">
 
@@ -100,7 +100,7 @@
                                 </button>
                             </div>
 
-                            <label for="stock">Stock disponible 4</label>
+                            <label for="stock">Stock disponible: {{producto_det.stock}}</label>
                             <button class="btn1" type="submit">Añadir al carro</button>
                         </div>
 
@@ -116,20 +116,7 @@
             <h4>
                 Descripción
             </h4>
-            <p>
-                U22 XT ofrece un máximo de flexibilidad como dispositivo USB totalmente alimentado por bus con una
-                calidad de audio profesional impecable de 24 bits. La interfaz cuenta con 2 canales de entrada analógica
-                y 2 de salida analógica con entradas de línea RCA, un preamplificador de micrófono con entrada XLR y
-                soporte para alimentación fantasma de + 48V, una entrada de instrumento Hi-Z para guitarras, una salida
-                de auriculares de alta calidad y salidas de línea TRS. El volumen principal y de los auriculares, así
-                como la monitorización, se controlan en el panel frontal. En el lado del software, U22 XT proporciona
-                controladores de baja latencia con soporte para WDM, ASIO 2.0 y CoreAudio basados ??en nuestra
-                tecnología EWDM y DirectWIRE. Con U22 XT se incluye el software Bitwig Studio 8-Track, la estación de
-                trabajo de audio digital eficaz y recortada para comenzar a producir, interpretar y diseñar audio como
-                un profesional. Con Bitwig Studio 8-Track, puede comenzar a trabajar de inmediato sin otro software
-                adicional. Grabe y arregle, improvise y actúe, o hágalo todo a la vez, con esta solución profesional
-                desarrollada por músicos, para músicos.
-            </p>
+            <p>{{producto_det.descripcion}}</p>
             <hr />
             <h4>
                 Especificaciones

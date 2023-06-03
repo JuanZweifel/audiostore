@@ -49,3 +49,4 @@ function bitcoin() {
 function clp(peso){
     $("#precio").text(peso)
 }
+

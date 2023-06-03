@@ -17,11 +17,10 @@ def categoria(request):
     return render(request, 'app/categoria.html', context)
 
 def detalle_producto(request, id):
-    producto=Producto.objects.all()
+    producto_det = get_object_or_404(Producto, id_producto = id)
     
     context = {
-        "producto":producto
+        "producto_det":producto_det
     }
     
-    producto_det = get_object_or_404(Producto, id_producto = id)
-    return render(request, "app/producto.html", {'producto_det':producto_det})
+    return render(request, "app/producto.html", context)
