@@ -1,93 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends '../app/plantilla.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+{% block title %}
+    Productos
+{% endblock title %}
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Font Awesome 5 Icons-->
-    <script src="https://kit.fontawesome.com/19e0d6ad15.js" crossorigin="anonymous"></script>
-
-    <script src="js/moneda.js"></script>
-
-    <script src="js/jquery-3.6.4.js"></script>
+{% block head %}
+    <script src="{% static 'app/js/moneda.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'app/css/producto.css' %}">
-    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+{% endblock head %}
+
+
+
     
 
-    <title>Producto</title>
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-    <!-- inicio barra de menu -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary nav fixed-top">
-        <div class="container-fluid">
-            <divicono class="d-flex" style="padding-left: 2%; padding-right: 2%; color: white;">
-                <a class="navbar-brand" href="index_principal.html">
-                    <i class="fa-solid fa-house fa-xl"></i>
-                </a>
-            </divicono>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation" style="background-color: aliceblue;">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <div class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    <a class="navbar-brand" aria-current="page" href="login.html">Logear</a>
-                    <a class="navbar-brand" aria-current="page" href="categoria.html">Productos</a>
-                    <a class="navbar-brand" aria-current="page" href="usuario.html">Cuenta</a>
-
-                </div>
-
-                <div class="btn-group me-1" role="group" aria-label="">
-                    <div class="btn-group" id="moneda" role="group">
-                        <button id="dropdownId" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                Moneda
-                        </button>
-                        <div class="dropdown-menu text-bg-dark" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#btn_clp" onclick="clp(peso)">CLP</a>
-                            <a class="dropdown-item" href="#btn_dolar" onclick="dolar(res)">DOLAR</a>
-                            <a class="dropdown-item" href="#btn_euro" onclick="euro(res)">EURO</a>
-                            <a class="dropdown-item" href="#btn_bitcoin" onclick="bitcoin(res)">BITCOIN</a>
-                        </div>
-                    </div>
-                </div>
-
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
-                    <button class="btn btn-outline-success"
-                        style="color: white; background-color:#AA77FF; border-color:white; "
-                        type="submit">Search</button>
-                </form>
-
-                <a class="celular navbar-brand" href="carroCompra.html" style="margin-left: 2%;">
-                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                    <p>Carro de compra</p>
-                </a>
-
-            </div>
-        </div>
-
-        
-    </nav>
-    <!-- ----------------------------------------------------------------------- -->
-
+{% block body %}
     <section>
         <div class="oculto">
-            <h2> Interfaz Esi U22XT</h2>
+            <h2>{{prod.nom_producto}}</h2>
             <br>
             <h5>Mixer/Interfaz</h5>
         </div>
@@ -100,17 +32,17 @@
 
                         <div class="mySlides">
                             <div class="numbertext">1 / 3</div>
-                            <img src="img/1.jpg" style="width:100%">
+                            <img src="{% static 'app/' %}img/1.jpg" style="width:100%">
                         </div>
 
                         <div class="mySlides">
                             <div class="numbertext">2 / 3</div>
-                            <img src="img/2.jpg" style="width:100%">
+                            <img src="{% static 'app/' %}img/2.jpg" style="width:100%">
                         </div>
 
                         <div class="mySlides">
                             <div class="numbertext">3 / 3</div>
-                            <img src="img/3.jpg" style="width:100%">
+                            <img src="{% static 'app/' %}img/3.jpg" style="width:100%">
                         </div>
 
 
@@ -122,20 +54,20 @@
 
                         <div class="row">
                             <div class="column">
-                                <img class="demo cursor" src="img/1.jpg" style="width:100%" onclick="currentSlide(1)"
+                                <img class="demo cursor" src="{% static 'app/' %}img/1.jpg" style="width:100%" onclick="currentSlide(1)"
                                     alt="1">
                             </div>
                             <div class="column">
-                                <img class="demo cursor" src="img/2.jpg" style="width:100%" onclick="currentSlide(2)"
+                                <img class="demo cursor" src="{% static 'app/' %}img/2.jpg" style="width:100%" onclick="currentSlide(2)"
                                     alt="2">
                             </div>
                             <div class="column">
-                                <img class="demo cursor" src="img/3.jpg" style="width:100%" onclick="currentSlide(3)"
+                                <img class="demo cursor" src="{% static 'app/' %}img/3.jpg" style="width:100%" onclick="currentSlide(3)"
                                     alt="3">
                             </div>
 
                         </div>
-                        <script src="js/gallery.js"></script>
+                        
                     </div>
                 </div>
                 <!-- Seccion derecha -->
@@ -212,23 +144,14 @@
         </div>
     </section>
 
-   <!-- footer -->
-   <footer class="estilofooter mt-auto">
-    <p class="mt-3">Siguenos en
-        <i class="fa-brands fa-instagram fa-xl"></i>
-        <i class="fa-brands fa-facebook fa-xl"></i>
-        <i class="fa-brands fa-twitter fa-xl"></i>
-        <br>
-        Powered by &copy;Audio 2023
-    </p>
-</footer>
+ 
 <!-- ------------------------------------------------------------------------------------------------ -->
+    <script src="{% static 'app/js/gallery.js' %}"></script>
     <script>
         var valor = document.getElementById("precio").textContent;
         const res = valor.replace(/\D/g, "");
         const peso = document.getElementById("precio").textContent;
 
     </script>
-</body>
+{% endblock body %}
 
-</html>
