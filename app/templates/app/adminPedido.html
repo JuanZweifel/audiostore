@@ -1,0 +1,64 @@
+{% extends '../app/plantilla_admin.html' %}
+{% load static %}
+{% block title %}
+    <title>Pedidos</title>
+{% endblock title %}
+{% block head %}
+    <link rel="stylesheet" href="css/admin.css">
+{% endblock head %}
+{% block body %}
+    <h2 class="m-2">Pedidos</h2>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nro.pedido</th>
+                    <th scope="col">idProducto</th>
+                    <th scope="col">idCliente</th>
+                    <th scope="col">nombreCliente</th>
+                    <th scope="col">cantidad</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="">
+                    <td scope="row">Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td><a name="" id="" class="btn btn-primary" href="adminPedidoModificar.html" role="button">Modificar</a></td>
+                    <td><a name="" id="" class="btn btn-primary" href="#" role="button">Eliminar</a></td>
+                </tr>
+                <tr class="">
+                    <td scope="row">Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td><a name="" id="" class="btn btn-primary" href="adminPedidoModificar.html" role="button">Modificar</a></td>
+                    <td><a name="" id="" class="btn btn-primary" href="#" role="button">Eliminar</a></td>
+                </tr>
+                <tr class="">
+                    <td scope="row">Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td><a name="" id="" class="btn btn-primary" href="adminPedidoModificar.html" role="button">Modificar</a></td>
+                    <td><a name="" id="" class="btn btn-primary" href="#" role="button">Eliminar</a></td>
+                </tr>
+                <tr class="">
+                    <td scope="row">Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td>Item</td>
+                    <td><a name="" id="" class="btn btn-primary" href="adminPedidoModificar.html" role="button">Modificar</a></td>
+                    <td><a name="" id="" class="btn btn-primary" href="#" role="button">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock body %}

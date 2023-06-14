@@ -1,0 +1,13 @@
+body {
+    background: #414141;
+    padding-top: 4.5rem;
+}
+
+#productos a {
+    all: unset;
+    cursor: pointer;
+}
+
+#productos .card:hover {
+    opacity: 0.85;
+}

@@ -1,0 +1,55 @@
+{% extends '../app/plantilla.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="css/pago.css">
+{% endblock head %}
+{% block title %}
+    <title>Pago</title>
+{% endblock title %}
+{% block body %}
+    <div class="row m-0">
+        <div class="col-lg-2">
+
+        </div>
+        <div class="col-lg-8">
+            <form class="form-pago mb-3" id="formulario">
+                <h3>Pago</h3>
+                <div>
+                    <label for="fname" id="nombre">Nombre</label>
+                    <input class="estiloinput" type="text" id="fname" name="firstname" placeholder="Ingresa tu nombre" required>
+                </div>
+                <div>
+                    <label for="lname">Apellido</label>
+                    <input class="estiloinput" type="text" id="lname" name="lastname" placeholder="Ingresa tu apellido" required>
+                </div>
+                <div>
+                    <label for="mail">Correo</label>
+                    <input class="estiloinput" type="email" id="mail" placeholder="Ingresa tu correo" required>
+                </div>
+                <div>
+                    <label for="fpago" name="fpago" class="w-100">Metodo pago: </label>
+                    <select id="fpago" name="fpago">
+                        <option value="wepay">Wepay</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+
+                <div class="mt-1">
+                    <label for="ftotal">Total: </label>
+                    <input class="estiloinput" type="text" id="ftotal" placeholder="  $100.000" readonly>
+                </div>
+                <!-- Boton -->
+                <div class="dbtnpago" role="alert">
+                    <button type="submit">Pagar</button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+{% endblock body %}
+{% block script %}
+    <script src="js/pago.js"></script>
+{% endblock script %}

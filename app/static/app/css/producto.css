@@ -1,0 +1,311 @@
+body {
+    background: #ffffff;
+    position: relative;
+    min-height: 120vh;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    vertical-align: middle;
+    border-radius: 8px;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+    padding-left: 18%;
+    padding-right: 18%;
+    position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    background-color: #a4a0b8;
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    background-color: #a4a0b8;
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+    opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+
+.derecha {
+    height: 550px;
+    padding: 30px;
+    border-style: groove;
+}
+
+div h5 {
+    color: #464646;
+}
+
+.label-precio {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    font-size: xx-large;
+    justify-self: center;
+    text-align: center;
+}
+
+.precio {
+    align-items: center;
+    text-align: center;
+}
+
+.divcant {
+
+    width: 100%;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+}
+
+.btncant {
+    display: inline-block;
+    height: 40px;
+    width: 10px;
+}
+
+#form1 {
+    width: 100px;
+}
+
+.form-outline {
+    display: inline-block;
+}
+
+
+
+.btn1 {
+
+    width: 100%;
+    background-color: #5b4caf;
+    font-size: medium;
+    color: white;
+    padding: 3%;
+    margin-top: 8%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.container div img {
+    border-style: groove;
+}
+
+
+.texto {
+    width: 100%;
+    padding: 45px;
+    text-align: justify;
+}
+
+.oculto{
+    display: none;
+}
+
+.oculto2{
+    display: block;
+}
+
+@media screen and (min-width: 100px) and (max-width: 300px) {
+    .column {
+        width: 60px;
+        
+    }
+
+    .col-7 {
+        width: 100%;
+    }
+
+    .prev,
+    .next {
+        font-size: 5px;
+    }
+
+    .derecha {
+        height: auto;
+
+    }
+
+
+    .container {
+        text-align: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .oculto2{
+        display: none;
+    }
+
+    .col-5 {
+        margin-top: 30px;
+        width: 90%;
+    }
+
+
+    body {
+        height: 120vh;
+    }
+
+
+    .column {
+        width: 75px;
+    }
+
+    .prev,
+    .next {
+        font-size: 5px;
+    }
+
+    .oculto{
+        padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
+        margin-top: 50px;
+        display: block;
+    }
+
+}
+
+
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+    .derecha {
+        height: auto;
+
+    }
+
+
+    .container {
+        text-align: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .oculto2{
+        display: none;
+    }
+
+    .col-7 {
+        width: 100%;
+    }
+
+    .col-5 {
+        margin-top: 30px;
+        width: 90%;
+    }
+
+
+    body {
+        height: 120vh;
+    }
+
+
+    .column {
+        width: 75px;
+    }
+
+    .prev,
+    .next {
+        font-size: 5px;
+    }
+
+    .oculto{
+        padding-top: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
+        margin-top: 50px;
+        display: block;
+    }
+
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 1000px){
+    .derecha {
+        height: auto;
+    }
+    .column {
+        width: 100px;
+        
+    }
+
+}
