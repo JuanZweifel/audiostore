@@ -9,6 +9,9 @@ def index(request):
     }
     return render(request, 'app/usuario/index_principal.html', context)
 
+def index_admin(request):
+    return render(request, 'app/admin/index_admin.html')
+
 def categoria(request):
     producto=Producto.objects.all()
     context= {
