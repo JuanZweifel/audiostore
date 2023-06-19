@@ -1,8 +1,17 @@
-{% extends '../app/plantilla_admin.html' %}
+{% extends '../admin/plantilla_admin.html' %}
+
 {% load static %}
-{% block title %}Index Admin{% endblock title %}
+
+{% block title %}Bienvenido{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'app/' %}css/index.css">
+{% endblock head %}
+
 {% block body %}
-    <div class="div-img text-center mt-auto">
-        <img class="estiloimagen img-fluid w-10" src="img/LOGO (2).png" alt="tio rene">
+    
+<div class="text-center mt-5">
+    <img class="img-fluid"src="{% static 'app/img/LOGO (2).png' %}" alt="" width="800" >
     </div>
+
 {% endblock body %}
