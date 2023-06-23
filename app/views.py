@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Producto
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Producto,Carrito
 
 # Create your views here.
 def index(request):
@@ -22,3 +22,18 @@ def categoria(request):
 def detalle_producto(request, id):
     producto_det = get_object_or_404(Producto, id_producto = id)
     return render(request, "app/usuario/producto.html", {'producto_det':producto_det})
+
+def carrito(request):
+    items = Carrito.objects.all()
+    total = sum(item.precio * item.cantidad for item in items)
+    data = {
+        'items' : items,
+        'total' : total
+    }
+    return render(request, 'app/usuario/carroCompra.html', data)
+
+def addCarrito(request, id):
+    producto = get_object_or_404(Producto, id_producto = id)
+    item = Carrito(producto=producto.nom_producto, precio=producto.precio, cantidad=1)
+    item.save()
+    return redirect(to='categoria')

@@ -23,3 +23,9 @@ class Producto(models.Model):
     stock = models.IntegerField(null=False)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+
+class Carrito(models.Model):
+    username = models.CharField(max_length=100)
+    producto = models.CharField(max_length=50, null=False)
+    precio = models.IntegerField(null=False)
+    cantidad = models.IntegerField(null=False)

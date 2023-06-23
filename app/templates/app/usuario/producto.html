@@ -96,7 +96,7 @@
                             </div>
 
                             <label for="stock">Stock disponible {{producto_det.stock}}</label>
-                            <button class="btn1" type="submit">Añadir al carro</button>
+                            <a href="{% url 'addCarrito' producto_det.id_producto%}" class="btn-comprar">Añadir al carro</a>
                         </div>
 
                     </div>
