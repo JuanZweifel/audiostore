@@ -39,8 +39,16 @@ def carrito(request):
 def addCarrito(request, id):
     user_cl = request.user
     producto = get_object_or_404(Producto, id_producto = id)
-    item = Carrito(usuario=user_cl,producto=producto.nom_producto, precio=producto.precio, cantidad=1)
-    item.save()
+    carro_cliente = Carrito.objects.filter(usuario = user_cl)
+    producto_cliente = carro_cliente.filter(producto = producto.nom_producto)
+    if producto_cliente.count() >= 1:
+        producto_carro = producto_cliente.get(producto = producto.nom_producto)
+        cantidad = producto_carro.cantidad
+        producto_carro.cantidad = cantidad + 1
+        producto_carro.save()
+    else:
+        item = Carrito(usuario=user_cl,producto=producto.nom_producto, precio=producto.precio, cantidad=1)
+        item.save()
     return redirect(to='categoria')
 
 @login_required
