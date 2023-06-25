@@ -33,10 +33,7 @@
                                     <p><strong>{{producto.producto}}</strong></p>
                                     <p>Descripción: </p>
                                     <p>Color: </p>
-                                    <button type="button" class="btn btn-danger btn-sm me-1 mb-2"
-                                        data-mdb-toggle="tooltip" title="Remove item">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <a class="btn btn-danger" href="#" onclick="eliminarProducto({{producto.id}})"><i class="fas fa-trash"></i></a>
                                     <!-- Data -->
                                 </div>
 
@@ -138,3 +135,23 @@
         </div>
     </section>
 {% endblock body%}
+{% block script %}
+    <script>
+        function eliminarProducto(id){
+            Swal.fire({
+                "title":"¿Estas seguro?",
+                "text":"Esta accion no se puede deshacer",
+                "icon":"question",
+                "showCancelButton":true,
+                "cancelButtonText":"Cancelar",
+                "confirmButtonText":"Si, Eliminar",
+                "reverseButtons":true
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "/removeCarrito/"+id
+                }
+            })
+        }
+    </script>
+{% endblock script %}

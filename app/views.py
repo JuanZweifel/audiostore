@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Producto,Carrito
+from django.contrib.auth.decorators import login_required,permission_required
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -23,8 +25,9 @@ def detalle_producto(request, id):
     producto_det = get_object_or_404(Producto, id_producto = id)
     return render(request, "app/usuario/producto.html", {'producto_det':producto_det})
 
+@login_required
 def carrito(request):
-    items = Carrito.objects.all()
+    items = Carrito.objects.filter(usuario = request.user)
     total = sum(item.precio * item.cantidad for item in items)
     data = {
         'items' : items,
@@ -32,8 +35,17 @@ def carrito(request):
     }
     return render(request, 'app/usuario/carroCompra.html', data)
 
+@login_required
 def addCarrito(request, id):
+    user_cl = request.user
     producto = get_object_or_404(Producto, id_producto = id)
-    item = Carrito(producto=producto.nom_producto, precio=producto.precio, cantidad=1)
+    item = Carrito(usuario=user_cl,producto=producto.nom_producto, precio=producto.precio, cantidad=1)
     item.save()
     return redirect(to='categoria')
+
+@login_required
+def removeCarrito(request, id):
+    item = get_object_or_404(Carrito,id=id)
+    item.delete()
+    messages.success(request,"Producto eliminado correctamente")  
+    return redirect(to="carro")

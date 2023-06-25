@@ -83,6 +83,26 @@
         </p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            {% block alerta %}
+                <script>
+                    Swal.fire({
+                        "title": "Felicitaciones",
+                        "text": "{{m}}",
+                        "icon": "success",
+                        "confirmButtonColor": "#87b56d"
+                    })
+                </script>
+            {% endblock alerta %}
+        {% endfor %}
+    {% endif %}
+
+    {% block script %}
+    
+    {% endblock script %}
 
 </body>
 
