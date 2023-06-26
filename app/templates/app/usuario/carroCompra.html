@@ -1,8 +1,9 @@
 {% extends '../usuario/plantilla.html' %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="css/carro.css">
+    <link rel="stylesheet" href={% static 'app/css/carro.css' %}>
 {% endblock head %}
+{% block title %}Carro de compra{% endblock title %}
 {% block body %}
     <section>
         <div class="container">
@@ -10,7 +11,7 @@
                 <div class="col">
                     <div class="card mb-4">
                         <div class="card-header py-3">
-                            <h5 class="mb-0">Carro - 2 Productos</h5>
+                            <h5 class="mb-0">Carro - {{cantidad}} productos </h5>
                         </div>
                         <div class="card-body">
                             <!-- Single item -->
@@ -46,9 +47,9 @@
                                         </button>
 
                                         <div class="form-outline">
-                                            <input id="form1" min="0" name="quantity" value="{{producto.cantidad}}" type="number"
+                                            <input id="cantidad-{{forloop.counter}}" min="0" name="quantity" value="{{producto.cantidad}}" type="number"
                                                 class="form-control" />
-                                            <label class="form-label" for="form1">Cantidad</label>
+                                            <label class="form-label" for="cantidad-{{forloop.counter}}">Cantidad</label>
                                         </div>
 
                                         <button class="btn btn-primary px-3 ms-2"
@@ -128,7 +129,7 @@
                                     <span><strong>${{total}}</strong></span>
                                 </li>
                             </ul>
-                            <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href="pago.html"
+                            <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href={% url 'checkout' %}
                                 role="button">Pagar</a>
                         </div>
                     </div>

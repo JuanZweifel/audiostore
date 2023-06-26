@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Producto,Carrito
+from .models import Producto,Carrito,Pedido
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib import messages
+from .forms import frmPago
 
 # Create your views here.
 def index(request):
@@ -28,10 +29,12 @@ def detalle_producto(request, id):
 @login_required
 def carrito(request):
     items = Carrito.objects.filter(usuario = request.user)
+    cantidad_items = Carrito.objects.filter(usuario = request.user).count()
     total = sum(item.precio * item.cantidad for item in items)
     data = {
-        'items' : items,
-        'total' : total
+        'items':items,
+        'total':total,
+        'cantidad':cantidad_items
     }
     return render(request, 'app/usuario/carroCompra.html', data)
 
@@ -57,3 +60,24 @@ def removeCarrito(request, id):
     item.delete()
     messages.success(request,"Producto eliminado correctamente")  
     return redirect(to="carro")
+
+@login_required
+def checkout(request):
+    items = Carrito.objects.filter(usuario = request.user)
+    total = sum(item.precio * item.cantidad for item in items)
+    if request.method == "POST":
+        form = frmPago(data=request.POST)
+        carrito_filas = Carrito.objects.filter(usuario = request.user)
+        for fila in carrito_filas.values():
+            Pedido.objects.create(**fila)
+        items.delete()
+        return redirect(to="index")# Cambiar a "pedidos usuario" cuando este hecho
+        
+    else:
+        form = frmPago()
+    context = {
+        'items':items,
+        'total':total,
+        "form":form
+    }
+    return render(request, 'app/usuario/pago.html', context)
