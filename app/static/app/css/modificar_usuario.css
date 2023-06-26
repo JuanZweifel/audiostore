@@ -9,12 +9,20 @@ body {
     margin-top: 80px;
 }
 
+h3{
+    text-align: center;
+}
+
 .divp {
     background-color: #ffffff;
     margin: 0 auto;
     padding: 20px;
     margin-bottom: 20px;
     width: 60%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(207, 207, 207);
+    border-radius: 11px;
 }
 
 .img-user {
@@ -35,16 +43,19 @@ body {
     padding: 20px;
 }
 
-.form-user button[type=submit] {
+.form-user input[type=submit] {
 
     width: 200px;
-    background-color: #5b4caf;
     font-size: medium;
     color: white;
-    padding: 3%;
+    padding: 0%;
     margin-top: 8%;
     border: none;
     border-radius: 10px;
+}
+
+.divboton {
+    align-items: center;
 }
 
 @media screen and (max-width: 600px) {
