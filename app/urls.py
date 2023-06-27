@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import include,path
 from .views import index, categoria, detalle_producto, index_admin, crear_cuenta, login_view
 from .views import perfil_usuario, modificar_usuario
-
+from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito,checkout
 
 
 urlpatterns = [
@@ -14,4 +14,9 @@ urlpatterns = [
     path('accounts/crear_cuenta', crear_cuenta, name='crearcuenta'),
     path('perfil_usuario', perfil_usuario, name='perfil_usuario'),
     path('modificar_usuario/<id>', modificar_usuario, name='modificar_usuario'),
+    path('carro', carrito, name='carro'),
+    path('addCarrito/<id>/', addCarrito, name='addCarrito'),
+    path('removeCarrito/<id>/', removeCarrito, name='removeCarrito'),
+    path('checkout', checkout, name='checkout'),
+    path('addPedido', addCarrito, name='addPedido'),
 ]

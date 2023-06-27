@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'core/'%}style/styles.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+    
+<script src="https://www.paypal.com/sdk/js?client-id=ARQLveMxINqyqs1FpTUZo1reemwM4FD43tIq1lHYY-jhnBDjThNoD_3urSC5OHdi54ql8wNzC1Op8fnI&currency=USD"></script>
+
+
+<div id="header">
+    <h1>Finalizar compra</h1>
+    <img class="carrito" src="{% static 'core/'%}img/carrito-de-compras.png" alt="carrito">
+</div>
+
+
+
+
+<div id="paypal-button-container">
+    <h1>Medio de pago</h1>
+
+    <script>
+
+        paypal.Buttons({
+            style:{
+                color:'blue',shape:'pill',label:'pay'
+            },
+            createOrder: function(data,actions){
+                return actions.order.create({
+                    purchase_units:[{
+                        amount:{
+                            value: 100
+                        }
+                    }]
+                });
+            },
+            //
+            onApptove: function(data,actions){
+                actions.order.capture().then(function (detalles){
+                    console.log(detalles);
+                });
+
+                
+            },
+
+
+            //Notificacion que indicara la cancelacion del pago
+            onCancel:function(data){
+                alert("Pago Cancelado")
+                //Para capturar los datos
+                console.log(data);
+            }
+
+        }).render("#paypal-button-container");
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</div>
+</body>
+</html>
