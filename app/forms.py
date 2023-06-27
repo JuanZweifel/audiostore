@@ -5,6 +5,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Cliente
+from django import forms
+from .models import Producto, ImagenProducto
+from django.forms import formset_factory
 class LoginForm(AuthenticationForm):
     pass
 
@@ -36,3 +39,19 @@ class frmPago(forms.Form):
     nombre_titular = forms.CharField(label="Nombre del titular", max_length=150, required=True)
     expiracion = forms.IntegerField(label="Expiración ", required=True)
     cvv = forms.IntegerField(label="CVV", required=True, validators=[MinValueValidator(0),MaxValueValidator(999)])
+
+class frmProducto(forms.ModelForm):
+
+    class Meta:
+        model = Producto
+        fields = ["id_producto","nom_producto","precio","descripcion","stock","categoria","marca"]
+        
+
+class frmImagen(forms.ModelForm):
+    
+    class Meta:
+        model = ImagenProducto
+        fields = ["imagen"]
+
+
+ImageFormSet = formset_factory(frmImagen, extra=0,max_num=5, can_delete=True, can_delete_extra=True)

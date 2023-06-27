@@ -27,6 +27,14 @@ class Producto(models.Model):
     stock = models.IntegerField(null=False)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+    
+    
+class ImagenProducto(models.Model):
+    id_imagen=models.AutoField(primary_key=True)
+    imagen = models.ImageField(null=False, blank=True, upload_to="Productos", height_field=None, width_field=None, max_length=None)
+    producto = models.ForeignKey(Producto, on_delete= models.CASCADE, related_name="imagenes")
+    def __str__(self):
+        return f"{self.imagen}"
 
 
 class Cliente(models.Model):
@@ -48,7 +56,7 @@ class Carrito(models.Model):
     cantidad = models.IntegerField(null=False)
 
 class Pedido(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     producto = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False)
     cantidad = models.IntegerField(null=False)
