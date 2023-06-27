@@ -58,7 +58,7 @@
                         type="submit">Search</button>
                 </form>
 
-                <a class="celular navbar-brand" href="carroCompra.html" style="margin-left: 2%;">
+                <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     <p>Carro de compra</p>
                 </a>
@@ -94,22 +94,24 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    {% if messages %}
+        {% for m in messages %}
+            {% block alerta %}
+                <script>
+                    Swal.fire({
+                        "title": "Felicitaciones",
+                        "text": "{{m}}",
+                        "icon": "success",
+                        "confirmButtonColor": "#87b56d"
+                    })
+                </script>
+            {% endblock alerta %}
+        {% endfor %}
+    {% endif %}
 
-{% if messages %}
-    {% for m in messages %}
-        {% block alerta %}
-            <script>
-                Swal.fire({
-                    "title": "Felicitaciones",
-                    "text": "{{m}}",
-                    "icon": "success",
-                    "confirmButtonColor": "#87b56d"
-                })
-            </script>
-        {% endblock alerta %}
-    {% endfor %}
-{% endif %}
-
+    {% block script %}
+    
+    {% endblock script %}
 
 </body>
 
