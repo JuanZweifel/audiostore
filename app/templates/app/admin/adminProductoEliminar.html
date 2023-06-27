@@ -1,0 +1,38 @@
+{% extends 'app/admin/plantilla_admin.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6">
+        <h3>Eliminar Producto</h3>
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {
+            {% comment %} <div>
+                <a href="{% url 'index_admin' %}" class="btn btn-primary text-light btn-lg">Volver</a>
+            </div>   {% endcomment %}
+
+            <div class="alert alert-danger">
+                <strong>ADVERTENCIA!</strong> Esta seguro que desea eliminar el producto
+                <h3>{{producto.nom_producto}} </h3>
+                <h3>{{producto.nom_producto}} </h3>
+            </div>
+            <div>
+                <input type="submit" value="Eliminar" class="btn btn-danger text-light btn-lg">
+            </div>
+
+        
+        </form>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
+
+{% endblock body %}
+
+
