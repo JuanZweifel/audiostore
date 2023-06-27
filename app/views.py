@@ -16,6 +16,7 @@ from django.forms import formset_factory, modelformset_factory
 from .models import Producto, ImagenProducto, Marca, Categoria
 from .forms import frmProducto, frmImagen, ImageFormSet
 from django.http.response import JsonResponse
+from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 def index(request):
@@ -121,11 +122,12 @@ def modificarproducto(request, id):
                         if os.path.exists(ruta_final):
                             os.remove(ruta_final)
                             
-            return redirect('index_admin')
+            return redirect(to="productos")
 
     context = {
         'form': form,
         'formset': formset,
+        'producto':producto,
     }
     return render(request, 'app/admin/adminProductoModificar.html', context)
 
