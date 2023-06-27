@@ -1,6 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 # Create your models here.
+validarletras = RegexValidator(r'^[a-zA-ZñÑ]*$', 'Ingrese solo letras')
+
 class Categoria(models.Model):
     id_cat=models.AutoField(primary_key=True, null=False)
     nom_cat=models.CharField(max_length=50, null=False)
@@ -23,3 +27,16 @@ class Producto(models.Model):
     stock = models.IntegerField(null=False)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
+
+
+class Cliente(models.Model):
+    
+    
+    usuario=models.OneToOneField(User, unique=True, related_name='perfil', on_delete=models.CASCADE)
+    
+    run=models.PositiveIntegerField(primary_key=True, null=False)   
+    primer_nombre=models.CharField(max_length=30, null=False, validators=[validarletras])
+    segundo_nombre=models.CharField(max_length=30, null=False, validators=[validarletras])
+    apellido_paterno=models.CharField(max_length=30, null=False, validators=[validarletras])
+    apellido_materno=models.CharField(max_length=30, null=False, validators=[validarletras])
+    correo=models.EmailField(max_length=254, unique=True)

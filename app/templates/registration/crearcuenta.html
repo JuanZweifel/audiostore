@@ -1,62 +1,32 @@
-{% extends '../app/plantilla.html' %}
+{% extends '../app/usuario/plantilla.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 {% block head %}
-    <link rel="stylesheet" href="css/crear_usuario.css">
+<link rel="stylesheet" href="{% static 'app/css/crear_usuario.css' %}">
 {% endblock head %}
-{% block title %}
-    <title>Crear cuenta</title>
-{% endblock title %}
+
+
 {% block body %}
-    <section>
-        <div class="row m-0 mb-4">
-            <div class="col-lg-2">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <form class="formm" action="" method="post">
 
-            </div>
+                <div class="card-body mt-0">
+                    <h4 class="card-title mb-4">Crear Cuenta</h4>
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    {{fuser|crispy}}
+                    <div style="text-align: center;">
+                        <input class="btn btn-success mt-4" value="Crear cuenta">
+                    </div>
+                </div>
 
-            <div class="col-lg-8">
-                <form class="form-user" action="index_principal.html" id="formulario" method="get">
-                    <h3>Crear Usuario</h3>
-                    <!-- Nombre -->
-                    <div>
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" placeholder="Ingrese su nombre" required>
-                    </div>
-                    <!-- Apellido -->
-                    <div>
-                        <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" placeholder="Ingrese su apellido" required>
-                    </div>
-                    <!-- Rut -->
-                    <div>
-                        <label for="rut">Rut</label>
-                        <input type="text" id="rut" placeholder="XXXXXXXX-X" required>
-                    </div>
-                    <!-- Mail -->
-                    <div>
-                        <label for="mail">Correo</label>
-                        <input type="email" id="mail" placeholder="Ingrese su correo" required>
-                    </div>
-                    <div>
-                        <label for="contraseña">Contraseña</label>
-                        <input type="password" id="contraseña" placeholder="Ingrese su contraseña" required>
-                    </div>
-                    <!-- Boton -->
-                    <div>
-                        <button type="submit">Registrame</a></button>
-                    </div>
-
-                    <div class="text-center">
-                        <h6>Aceptas nuestros terminos y condiciones</h6>
-                    </div>
-                </form>
-            </div>
-
-            <div class="col-lg-2">
-
-            </div>
+            </form>
         </div>
-    </section>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
 {% endblock body %}
-{% block script %}
-    <script src="js/log.js"></script>
-{% endblock script %}

@@ -3,6 +3,10 @@
     font-family: sans-serif;
 }
 
+.navbar-brand:hover{
+    color: rgb(193, 192, 255);
+}
+
 .navbar a {
     color: white;
 }
