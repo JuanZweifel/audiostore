@@ -336,16 +336,19 @@ def removePedido(request, id):
     messages.success(request,"Producto eliminado correctamente")  
     return redirect(to="adminPedido")
 
+@staff_member_required(login_url="loginn")
 def clientes_admin(request):
     
     
     return render(request, "app/admin/clientes_admin.html")
 
+@staff_member_required(login_url="loginn")
 def lista_clientes(_request):
     clientes = list(Cliente.objects.values())
     data={'clientes':clientes}
     return JsonResponse(data)
 
+@staff_member_required(login_url="loginn")
 def modificar_cliente(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
@@ -366,6 +369,7 @@ def modificar_cliente(request,id):
 
     return render(request,"app/admin/modificar_cliente.html",contexto)
 
+@staff_member_required(login_url="loginn")
 def eliminar_cliente(request,id):
     cliente=get_object_or_404(Cliente,run=id)
     id = cliente.usuario_id
