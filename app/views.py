@@ -8,6 +8,7 @@ from .forms import LoginForm, frmCrearCuenta, frmPerfilCliente, frmModifDatosCli
 from .forms import frmPago
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib.admin.views.decorators import staff_member_required
 import os
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
@@ -20,6 +21,7 @@ from django.http.response import JsonResponse
 def index(request):
     return render(request, 'app/usuario/index_principal.html')
 
+@staff_member_required(login_url="loginn")
 def index_admin(request):
     return render(request, 'app/admin/index_admin.html')
 
@@ -34,6 +36,7 @@ def detalle_producto(request, id):
     producto_det = get_object_or_404(Producto, id_producto = id)
     return render(request, "app/usuario/producto.html", {'producto_det':producto_det})
 
+@staff_member_required(login_url="loginn")
 def crearproducto(request):
     if request.method=="POST":
         form = frmProducto(request.POST)
@@ -62,6 +65,7 @@ def crearproducto(request):
     return render(request, 'app/admin/adminProductoAnadir.html', context)
 
 
+@staff_member_required(login_url="loginn")
 def modificarproducto(request, id):
     producto = get_object_or_404(Producto,id_producto=id)
     form = frmProducto(instance=producto)
@@ -126,6 +130,7 @@ def modificarproducto(request, id):
     return render(request, 'app/admin/adminProductoModificar.html', context)
 
 
+@staff_member_required(login_url="loginn")
 def eliminarproducto(request,id):
     producto=get_object_or_404(Producto,id_producto=id)
 
@@ -153,11 +158,13 @@ def eliminarproducto(request,id):
     return render(request,"app/admin/adminProductoEliminar.html",contexto)
 
 
+@staff_member_required(login_url="loginn")
 def productos(request):
 
     
     return render(request,"app/admin/adminProducto.html")
 
+@staff_member_required(login_url="loginn")
 def lista_productos(_request):
     productos = list(Producto.objects.values())
 
@@ -233,6 +240,7 @@ def perfil_usuario(request):
     
     return render(request, 'app/usuario/perfil_usuario.html', contexto)
 
+@staff_member_required(login_url="loginn")
 def modificar_usuario(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
@@ -309,17 +317,17 @@ def checkout(request):
     }
     return render(request, 'app/usuario/pago.html', context)
 
-@login_required
+@staff_member_required(login_url="loginn")
 def adminPedido(request):
     return render(request, 'app/admin/adminPedido.html')
 
-@login_required
+@staff_member_required(login_url="loginn")
 def lista_pedidos(info):
     pedidos = list(Pedido.objects.values())
     data={'pedidos':pedidos}
     return JsonResponse(data)
 
-@login_required
+@staff_member_required(login_url="loginn")
 def removePedido(request, id):
     item = get_object_or_404(Pedido,id=id)
     item.delete()
