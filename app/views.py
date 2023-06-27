@@ -333,3 +333,49 @@ def removePedido(request, id):
     item.delete()
     messages.success(request,"Producto eliminado correctamente")  
     return redirect(to="adminPedido")
+
+def clientes_admin(request):
+    
+    
+    return render(request, "app/admin/clientes_admin.html")
+
+def lista_clientes(_request):
+    clientes = list(Cliente.objects.values())
+    data={'clientes':clientes}
+    return JsonResponse(data)
+
+def modificar_cliente(request,id):
+    modificar=get_object_or_404(Cliente,run=id)
+    
+    form = frmModifDatosCliente(instance=modificar)
+    contexto={
+        "form":form,
+        "modificar":modificar
+    }
+    
+    if request.method=="POST":
+        
+        form=frmModifDatosCliente(data=request.POST,instance=modificar)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Cuenta modificada correctamente")
+            return redirect(to="clientes_admin")
+
+    return render(request,"app/admin/modificar_cliente.html",contexto)
+
+def eliminar_cliente(request,id):
+    cliente=get_object_or_404(Cliente,run=id)
+    id = cliente.usuario_id
+    usuario=User.objects.get(id=id)
+    contexto={
+
+        "cliente":cliente
+    }
+
+    if request.method=="POST":
+        usuario.delete()
+        messages.success(request,"Cliente eliminado correctamente")
+        return redirect(to="clientes_admin")
+    
+    return render(request,"app/admin/eliminar_cliente.html",contexto)

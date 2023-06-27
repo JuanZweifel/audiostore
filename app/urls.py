@@ -3,6 +3,7 @@ from django.urls import include,path
 from .views import index, categoria, detalle_producto, index_admin, crear_cuenta, login_view, adminPedido, lista_pedidos
 from .views import perfil_usuario, modificar_usuario, removePedido
 from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito,checkout
+from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente
 
 
 from .views import modificarproducto, eliminarproducto,productos
@@ -30,4 +31,8 @@ urlpatterns = [
     path('adminPedido', adminPedido, name='adminPedido'),
     path('lista_pedidos',lista_pedidos, name='lista_pedidos'),
     path('removePedido/<id>/', removePedido, name='removePedido'),
+    path('clientes_admin', clientes_admin, name= 'clientes_admin'),
+    path('lista_clientes/',lista_clientes, name='lista_clientes'),
+    path('modificar_cliente/<id>', modificar_cliente, name='modificar_cliente'),
+    path('eliminar_cliente/<id>',eliminar_cliente, name='eliminar_cliente' ),
 ]
