@@ -242,7 +242,7 @@ def perfil_usuario(request):
     
     return render(request, 'app/usuario/perfil_usuario.html', contexto)
 
-@staff_member_required(login_url="loginn")
+
 def modificar_usuario(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
