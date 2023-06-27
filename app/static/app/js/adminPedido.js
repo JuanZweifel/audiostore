@@ -45,7 +45,7 @@ const listaPedidos=async()=>{
                     <td>${pedido.cantidad}</td>
                     <td>${pedido.usuario_id}</td>
                     <td>
-                    <a class="btn btn-danger" href="#" onclick="eliminarProducto(${pedido.id})"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-danger" href="#" onclick="removePedido(${pedido.id})"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>`;
         });
