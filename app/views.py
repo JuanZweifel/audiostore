@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required,permission_required
+from django.http.response import JsonResponse
 from .models import Producto, Cliente
 from .models import Producto,Carrito,Pedido
 from django.shortcuts import render, get_object_or_404, redirect
@@ -307,3 +308,20 @@ def checkout(request):
         "form":form
     }
     return render(request, 'app/usuario/pago.html', context)
+
+@login_required
+def adminPedido(request):
+    return render(request, 'app/admin/adminPedido.html')
+
+@login_required
+def lista_pedidos(info):
+    pedidos = list(Pedido.objects.values())
+    data={'pedidos':pedidos}
+    return JsonResponse(data)
+
+@login_required
+def removePedido(request, id):
+    item = get_object_or_404(Pedido,id=id)
+    item.delete()
+    messages.success(request,"Producto eliminado correctamente")  
+    return redirect(to="adminPedido")
