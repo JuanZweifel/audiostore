@@ -35,7 +35,9 @@ class admImagenProducto2(admin.ModelAdmin):
         model=ImagenProducto
 
 class admPedido(admin.ModelAdmin):
-    list_display=["producto", "precio", "cantidad"]
+    list_display=["producto", "precio", "cantidad", "usuario_id", "estado"]
+    list_editable=["estado"]
+
     class meta:
         model=Pedido
 

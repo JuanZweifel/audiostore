@@ -326,6 +326,9 @@ def adminPedido(request):
 @staff_member_required(login_url="loginn")
 def lista_pedidos(info):
     pedidos = list(Pedido.objects.values())
+    for pedido in pedidos:
+        idusuario = pedido['usuario_id']
+        pedido['usuario_id'] = User.objects.get(id=idusuario).username
     data={'pedidos':pedidos}
     return JsonResponse(data)
 
@@ -334,6 +337,18 @@ def removePedido(request, id):
     item = get_object_or_404(Pedido,id=id)
     item.delete()
     messages.success(request,"Producto eliminado correctamente")  
+    return redirect(to="adminPedido")
+
+@staff_member_required(login_url="loginn")
+def updatePedido(request, id):
+    item = get_object_or_404(Pedido,id=id)
+    if item.estado == "No Retirado":
+        item.estado = "Retirado"
+        item.save(update_fields=["estado"])
+    else:
+        item.estado = "No Retirado"
+        item.save(update_fields=["estado"])
+    messages.success(request,"Estado cambiado correctamente")  
     return redirect(to="adminPedido")
 
 @staff_member_required(login_url="loginn")
