@@ -177,29 +177,22 @@ def modificarproducto(request, id):
 def eliminarproducto(request,id):
     producto=get_object_or_404(Producto,id_producto=id)
 
-    contexto={
 
-        "producto":producto,
-    }
-
-    if request.method=="POST":
-        img = ImagenProducto.objects.filter(producto=producto)
-        
-        if img:
-            for imagenn in img:
-                    ruta_imagen = imagenn.imagen.url
-                    ruta_media = os.path.join(settings.MEDIA_ROOT)
-                    nombre = os.path.basename(ruta_imagen)
-                    ruta_final = ruta_media + '/Productos/' + nombre
-                
-                    if os.path.exists(ruta_final):
-                        os.remove(ruta_final)
-        producto.delete()
-        return redirect(to="index_admin")
-
-
-    return render(request,"app/admin/adminProductoEliminar.html",contexto)
-
+    img = ImagenProducto.objects.filter(producto=producto)
+    
+    if img:
+        for imagenn in img:
+                ruta_imagen = imagenn.imagen.url
+                ruta_media = os.path.join(settings.MEDIA_ROOT)
+                nombre = os.path.basename(ruta_imagen)
+                ruta_final = ruta_media + '/Productos/' + nombre
+            
+                if os.path.exists(ruta_final):
+                    os.remove(ruta_final)
+    producto.delete()
+    
+    messages.success(request,"Producto eliminado correctamente")
+    return redirect(to="categorias")
 
 @staff_member_required(login_url="loginn")
 def productos(request):
@@ -283,7 +276,7 @@ def perfil_usuario(request):
     
     return render(request, 'app/usuario/perfil_usuario.html', contexto)
 
-
+@login_required
 def modificar_usuario(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
@@ -496,6 +489,7 @@ def categorias(request):
     return render(request,"app/admin/adminCategoria.html")
 
 
+@staff_member_required(login_url="loginn")
 def modificarcategoria(request,id):
     categoria=get_object_or_404(Categoria,id_cat=id)
     form = frmCategoria(instance=categoria)
@@ -516,8 +510,15 @@ def modificarcategoria(request,id):
 @staff_member_required(login_url="loginn")
 def removeCategoria(request, id):
     item = get_object_or_404(Categoria,id_cat=id)
-    item.delete()
-    messages.success(request,"Categoria eliminada correctamente")  
+    messages.success(request,"No se pudo eliminar la categoria")
+    
+    try:
+        cat = Producto.objects.get(categoria=item)
+        
+    except Producto.DoesNotExist:
+        item.delete()
+        messages.success(request,"Categoria eliminada correctamente")
+    
     return redirect(to="categorias")
 
 
@@ -558,7 +559,7 @@ def crearmarca(request):
     
     return render(request, "app/admin/adminCrearMarca.html", context)
 
-
+@staff_member_required(login_url="loginn")
 def modificarmarca(request,id):
     marca=get_object_or_404(Marca,id_marca=id)
     form = frmMarca(instance=marca)
@@ -579,6 +580,14 @@ def modificarmarca(request,id):
 @staff_member_required(login_url="loginn")
 def removeMarca(request, id):
     item = get_object_or_404(Marca,id_marca=id)
-    item.delete()
-    messages.success(request,"Marca eliminada correctamente")  
+    
+    messages.success(request,"No se pudo eliminar la marca") 
+    try:
+        pro = Producto.objects.get(marca=item)
+        
+    except Producto.DoesNotExist:
+        item.delete()
+        messages.success(request,"Marca eliminada correctamente") 
+    
+    
     return redirect(to="marcas")

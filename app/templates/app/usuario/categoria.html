@@ -2,79 +2,79 @@
 {% load static %}
 
 {% block title %}
-    
+
 {% endblock title %}
 
 
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'app/css/categoria.css' %}">
-    <script src="{% static 'app/' %}js/categoria.js"></script>
+<link rel="stylesheet" href="{% static 'app/css/categoria.css' %}">
+<script src="{% static 'app/' %}js/categoria.js"></script>
 {% endblock head %}
 
 
 {% block body %}
-    <div>
-        <div class="container-fluid">
-            <div class="row">
-                <!-- Filtro -->
-                <div class="col-lg-3 col-md-3 col-sm-12">
-                    <div class="card mt-2">
-                        <div class="card-body">
-                            <h4 class="card-title"><i class="fa-solid fa-filter"></i> Filtros</h4>
-                            <hr>
-                            <p class="card-text">
-                                <label for="rangePrecio" class="form-label">Precio</label>
-                                <input type="range" class="form-range" id="rangePrecio" min="0" max="999999">
-                            <div class="dropdown">
-                                <button class="btn btn-primary w-100 text-start" type="button" id="dropdownMarcaButton"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Marcas <i class="fa-solid fa-caret-down float-end lh-base"></i>
-                                </button>
-                                <ul class="dropdown-menu w-100" aria-labelledby="dropdownMarcaButton">
-                                    <li><a class="dropdown-item" href="#">Marca 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Marca 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Marca 3</a></li>
-                                </ul>
-                            </div>
-                            <hr>
-                            <div class="dropdown">
-                                <button class="btn btn-primary w-100 text-start" type="button"
-                                    id="dropdownCategoriaButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Categoria <i class="fa-solid fa-caret-down float-end lh-base"></i>
-                                </button>
-                                <ul class="dropdown-menu w-100" aria-labelledby="dropdownCategoriaButton">
-                                    <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Categoria 3</a></li>
-                                </ul>
-                            </div>
-                            </p>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Filtro -->
+            <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="fa-solid fa-filter"></i> Filtros</h4>
+                        <hr>
+                        <p class="card-text">
+                            <label for="rangePrecio" class="form-label">Precio</label>
+                            <input type="range" class="form-range" id="rangePrecio" min="0" max="999999">
+                        <div class="dropdown">
+                            <button class="btn btn-primary w-100 text-start" type="button" id="dropdownMarcaButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Marcas <i class="fa-solid fa-caret-down float-end lh-base"></i>
+                            </button>
+                            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMarcaButton">
+                                <li><a class="dropdown-item" href="#">Marca 1</a></li>
+                                <li><a class="dropdown-item" href="#">Marca 2</a></li>
+                                <li><a class="dropdown-item" href="#">Marca 3</a></li>
+                            </ul>
                         </div>
+                        <hr>
+                        <div class="dropdown">
+                            <button class="btn btn-primary w-100 text-start" type="button" id="dropdownCategoriaButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Categoria <i class="fa-solid fa-caret-down float-end lh-base"></i>
+                            </button>
+                            <ul class="dropdown-menu w-100" aria-labelledby="dropdownCategoriaButton">
+                                <li><a class="dropdown-item" href="#">Categoria 1</a></li>
+                                <li><a class="dropdown-item" href="#">Categoria 2</a></li>
+                                <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                            </ul>
+                        </div>
+                        </p>
                     </div>
                 </div>
-                <!---->
-                <div class="col-lg-9 col-md-9 col-sm-12">
-                    <div id="productos">
-                        <div class="row">
-                            {% for producto in productos %}
-                            <div class="col-lg-3 col-md-6">
-                                <a href="{% url 'detalle_producto' producto.id_producto %}">
-                                    <div class="card mt-2 cardproduct">
-                                        <img src="media/{{producto.imagen}}" class="card-img-top" alt="N/A">
-                                        <div class="card-body">
-                                            <h3 class="card-title text-center">{{producto.nom_producto}}</h3>
-                                            <p class="card-subtitle text-center">{{producto.marca}}</p>
-                                            <hr class="my-2" />
-                                            <p class="card-text text-center">{{producto.precio}}</p>
-                                        </div>
+            </div>
+            <!---->
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                <div id="productos">
+                    <div class="row">
+                        {% for producto in productos %}
+                        <div class="col-lg-3 col-md-6">
+                            <a href="{% url 'detalle_producto' producto.id_producto %}">
+                                <div class="card mt-2 cardproduct">
+                                    <img src="media/{{producto.imagen}}" class="card-img-top" alt="N/A">
+                                    <div class="card-body cardp">
+                                        <h3 class="card-title text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}</h3>
+                                        <p class="card-subtitle text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>
+                                        <hr class="my-2" />
+                                        <p class="card-text text-center">{{producto.precio}}</p>
                                     </div>
-                                </a>
-                            </div>
-                            {% endfor %}
+                                </div>
+                            </a>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-{% endblock body %}
+    </div>
+    {% endblock body %}

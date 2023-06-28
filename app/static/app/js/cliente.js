@@ -6,7 +6,7 @@ let dataTableIsInitialized;
 const dataTableOptions = {
     columnDefs: [
         {className: "centered", targets: [0,1,2,3,4,5,6] },
-        {orderable:false, targets:[1,3,5,6]},
+        {orderable:false, targets:[6]},
         {searchable:false,targets:[1,6]},
     ],
     pageLength: 4,
