@@ -20,7 +20,19 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 def index(request):
-    return render(request, 'app/usuario/index_principal.html')
+    productos = Producto.objects.all()
+    
+    for producto in productos:
+        img = ImagenProducto.objects.filter(producto=producto)
+        
+        if img.exists():
+            producto.imagen=img[0]
+        
+    context= {
+        'productos':productos
+    }
+    
+    return render(request, 'app/usuario/index_principal.html', context)
 
 @staff_member_required(login_url="loginn")
 def index_admin(request):
@@ -34,8 +46,29 @@ def categoria(request):
     return render(request, 'app/usuario/categoria.html', context)
 
 def detalle_producto(request, id):
-    producto_det = get_object_or_404(Producto, id_producto = id)
-    return render(request, "app/usuario/producto.html", {'producto_det':producto_det})
+    producto = get_object_or_404(Producto, id_producto = id)
+    
+    imagenes = ImagenProducto.objects.filter(producto=producto)
+    imagen1 = None
+    imagen2 = None
+    imagen3 = None
+
+    if imagenes.exists():
+        imagen1 = imagenes[0]
+        if len(imagenes) >= 2:
+            imagen2 = imagenes[1]
+        if len(imagenes) >= 3:
+            imagen3 = imagenes[2]
+    
+    
+    context= {
+        'producto':producto,
+        'imagen1':imagen1,
+        'imagen2':imagen2,
+        'imagen3':imagen3
+    }
+
+    return render(request, "app/usuario/producto.html",context)
 
 @staff_member_required(login_url="loginn")
 def crearproducto(request):

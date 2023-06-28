@@ -50,16 +50,16 @@
 
     <div class="container-fluid">
         <div class="row">
-        {% for prod in producto%}
+        {% for producto in productos%}
             
                 <div class="col-lg-3 col-sm-6">
-                    <a href="producto.html" class="linkdiv">
+                    <a href="{% url 'detalle_producto' producto.id_producto %}" class="linkdiv">
                         <div class="card mt-sm-4 mt-2">
-                            <img class="card-img-top imagen" src="{% static 'app/' %}img/productos/soundcraft5x1.png" alt="Card image">
+                            <img class="card-img-top imagen" src="media/{{producto.imagen}}" alt="Card image">
                             <div class="card-body">
-                                <h4 class="card-title">{{prod.marca}}</h4>
-                                <p class="card-text">{{prod.nom_producto}}</p>
-                                <p>${{prod.precio}}</p>
+                                <h4 class="card-title">{{producto.nom_producto}}</h4>
+                                <p class="card-text">{{producto.marca}}</p>
+                                <p>${{producto.precio}}</p>
                             </div>
                         </div>
                     </a>

@@ -14,9 +14,9 @@
 {% block body %}
     <section>
         <div class="oculto">
-            <h2> Interfaz Esi U22XT</h2>
+            <h2>{{producto.nom_producto}}</h2>
             <br>
-            <h5>Mixer/Interfaz</h5>
+            <h5>{{producto.categoria}}</h5>
         </div>
 
         <div class="container-fluid margenbarramenu">
@@ -27,17 +27,17 @@
 
                         <div class="mySlides">
                             <div class="numbertext">1 / 3</div>
-                            <img src="img/1.jpg" style="width:100%">
+                            <img src="{{imagen1.imagen.url}}" style="width:100%">
                         </div>
 
                         <div class="mySlides">
                             <div class="numbertext">2 / 3</div>
-                            <img src="img/2.jpg" style="width:100%">
+                            <img src="{{imagen2.imagen.url}}" style="width:100%">
                         </div>
 
                         <div class="mySlides">
                             <div class="numbertext">3 / 3</div>
-                            <img src="img/3.jpg" style="width:100%">
+                            <img src="{{imagen3.imagen.url}}" style="width:100%">
                         </div>
 
 
@@ -46,19 +46,19 @@
                         <a class="next" onclick="plusSlides(1)">❯</a>
 
                         <br>
+                        
+
+
 
                         <div class="row">
                             <div class="column">
-                                <img class="demo cursor" src="img/1.jpg" style="width:100%" onclick="currentSlide(1)"
-                                    alt="1">
+                                <img class="demo cursor" src="{{imagen1.imagen.url}}" style="width:100%" onclick="currentSlide(1)"alt="1"> 
                             </div>
                             <div class="column">
-                                <img class="demo cursor" src="img/2.jpg" style="width:100%" onclick="currentSlide(2)"
-                                    alt="2">
+                                <img class="demo cursor" src="{{imagen2.imagen.url}}" style="width:100%" onclick="currentSlide(2)"alt="2">
                             </div>
                             <div class="column">
-                                <img class="demo cursor" src="img/3.jpg" style="width:100%" onclick="currentSlide(3)"
-                                    alt="3">
+                                <img class="demo cursor" src="{{imagen3.imagen.url}}" style="width:100%" onclick="currentSlide(3)"alt="3">
                             </div>
 
                         </div>
@@ -68,14 +68,14 @@
                 <!-- Seccion derecha -->
                 <div class="col-5" style="order: 1;">
                     <div class="derecha">
-                        <div class="oculto2">
-                            <h2>{{producto_det.nom_producto}}</h2>
+                        <div class="oculto2 divcenter">
+                            <h2>{{producto.nom_producto}}</h2>
                             <br>
-                            <h5>Mixer/Interfaz</h5>
+                            <h5>{{producto.categoria}}</h5>
                         </div>
 
                         <div class="precio">
-                            <label for="precio" class="label-precio" id="precio">{{producto_det.precio}}</label>
+                            <label for="precio" class="label-precio" id="precio">${{producto.precio}}</label>
 
                             <div class="  divcant">
 
@@ -95,8 +95,9 @@
                                 </button>
                             </div>
 
-                            <label for="stock">Stock disponible {{producto_det.stock}}</label>
-                            <a href="{% url 'addCarrito' producto_det.id_producto%}" class="btn-comprar">Añadir al carro</a>
+                            <label for="stock">Stock disponible {{producto.stock}}</label>
+                            <br>
+                            <a href="{% url 'addCarrito' producto.id_producto%}" class="btn-comprar">Añadir al carro</a>
                         </div>
 
                     </div>
@@ -111,24 +112,14 @@
             <h4>
                 Descripción
             </h4>
-            <p>{{producto_det.descripcion}}</p>
-            <hr />
-            <h4>
-                Especificaciones
-            </h4>
-            <p>
-                Canales: 2 Canales <br>
-                Conectores: Multi entrada(XLR/Plug), RCA y entrada plug, Salida audifonos y parlantes <br>
-                Amp: SI <br>
-                Alimentacion: Usb <br>
-                Modelo: U22XT <br>
-            </p>
+            <p>{{producto.descripcion}}</p>
         </div>
     </section>
     <script>
         var valor = document.getElementById("precio").textContent;
         const res = valor.replace(/\D/g, "");
         const peso = document.getElementById("precio").textContent;
-
     </script>
+
+    <script src="{% static 'app/js/gallery.js'%}"></script>
 {% endblock body %}
