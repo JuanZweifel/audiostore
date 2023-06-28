@@ -1,0 +1,46 @@
+{% extends '../app/plantilla_admin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <link rel="stylesheet" href="css/admin.css">
+{% endblock head %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center align-items-center g-2 p-5">
+        <div class="col-12">
+
+            <h3 class="mt-5">Foo</h3>
+            <a style="all: unset" href={% url 'tipo_habitacion_add' %}><button type="button"
+                class="btn btn-success mt-5 mb-3">Añadir</button></a>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th> Acciones </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for in  %}
+                        <tr class="">
+                            <td scope="row">{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                            <td>{{}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block script %}
+    <script src="js/admin.js"></script>
+{% endblock script %}

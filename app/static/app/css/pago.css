@@ -1,0 +1,150 @@
+body {
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.form-pago {
+    border-radius: 11px;
+    background-color: #ffffff;
+    margin: auto;
+    margin-top: 100px;
+    text-align: left;
+    padding: 50px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(207, 207, 207);
+    padding: 25px;
+
+}
+
+
+/* Input del total */
+#ftotal {
+    width: 40%;
+    height: 50px;
+    margin-bottom: 5%;
+    border-color: #ccc;
+    border-style: double;
+    border-radius: 5px;
+}
+
+.form-pago input {
+    width: 100%;
+    height: 50px;
+    border-color: #ccc;
+    border-style: double;
+    border-radius: 5px;
+}
+
+.form-pago select {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    margin-bottom: 5%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-pago button[type=submit] {
+    width: 20%;
+    background-color: #5b4caf;
+    font-size: medium;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
+
+
+/* Div del boton de pago */
+.dbtnpago {
+    text-align: right;
+}
+
+
+@media screen and (max-width: 600px) {
+    body {
+        height: 110vh;
+    }
+
+    .form-pago {
+        padding: 30px;
+        margin-top: 70px;
+        bottom: 100px;
+    }
+
+    .form-pago input {
+        width: 100%;
+        height: 40px;
+        margin-bottom: 5%;
+        border-color: #ccc;
+        border-style: double;
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .form-pago #ftotal {
+        font-size: small;
+        width: 100%;
+        padding: 10px;
+    }
+
+
+    .form-pago label {
+        font-size: small;
+        margin-top: 10px;
+    }
+
+    .form-pago h6 {
+        display: block;
+        font-size: small;
+    }
+
+    .form-pago a {
+        font-size: small;
+    }
+
+    .form-pago button[type=submit] {
+        width: 100%;
+        font-size: small;
+    }
+
+    .form-pago select {
+
+        width: 90%;
+    }
+
+}
+
+@media screen and (min-width: 600px) and (max-width: 1000px) {
+    .form-pago {
+        width: 70%;
+        padding: 35px;
+    }
+
+    .form-pago input {
+        font-size: small;
+        padding: 10px;
+    }
+
+}
+
+@media screen and (min-width: 1000px) {
+    .form-pago {
+        width: 500px;
+        padding: 40px;
+    }
+
+    .form-pago input {
+        font-size: small;
+        padding: 10px;
+    }
+
+}

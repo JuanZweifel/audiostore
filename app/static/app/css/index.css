@@ -1,0 +1,27 @@
+body{
+    padding-top: 4.5rem;
+}
+
+.card-title{
+    color: black;
+}
+
+
+.card-text{
+    color: black;
+
+}
+
+.linkdiv{
+    text-decoration: none;  
+}
+
+.cardp {
+    white-space: nowrap;
+    /* Hace que el texto se ajuste en una sola línea */
+    overflow: hidden;
+    /* Añade puntos suspensivos (...) al final del texto si se desborda */
+    text-overflow: ellipsis;
+
+    text-align: center;
+}

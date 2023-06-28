@@ -1,0 +1,125 @@
+{% extends '../usuario/plantilla.html' %}
+{% load static %}
+{% block title %}
+    <title>Producto</title>
+{% endblock title %}
+{% block head %}
+    <script src="js/moneda.js"></script>
+
+    <script src="js/jquery-3.6.4.js"></script>
+
+    <link rel="stylesheet" href="{% static 'app/css/producto.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+{% endblock head %}
+{% block body %}
+    <section>
+        <div class="oculto">
+            <h2>{{producto.nom_producto}}</h2>
+            <br>
+            <h5>{{producto.categoria}}</h5>
+        </div>
+
+        <div class="container-fluid margenbarramenu">
+            <div class="row justify-content-center g-2" style="display: flex;">
+                <div class="col-7">
+
+                    <div class="container">
+
+                        <div class="mySlides">
+                            <div class="numbertext">1 / 3</div>
+                            <img src="{{imagen1.imagen.url}}" style="width:100%">
+                        </div>
+
+                        <div class="mySlides">
+                            <div class="numbertext">2 / 3</div>
+                            <img src="{{imagen2.imagen.url}}" style="width:100%">
+                        </div>
+
+                        <div class="mySlides">
+                            <div class="numbertext">3 / 3</div>
+                            <img src="{{imagen3.imagen.url}}" style="width:100%">
+                        </div>
+
+
+
+                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                        <a class="next" onclick="plusSlides(1)">❯</a>
+
+                        <br>
+                        
+
+
+
+                        <div class="row">
+                            <div class="column">
+                                <img class="demo cursor" src="{{imagen1.imagen.url}}" style="width:100%" onclick="currentSlide(1)"alt="1"> 
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="{{imagen2.imagen.url}}" style="width:100%" onclick="currentSlide(2)"alt="2">
+                            </div>
+                            <div class="column">
+                                <img class="demo cursor" src="{{imagen3.imagen.url}}" style="width:100%" onclick="currentSlide(3)"alt="3">
+                            </div>
+
+                        </div>
+                        <script src="js/gallery.js"></script>
+                    </div>
+                </div>
+                <!-- Seccion derecha -->
+                <div class="col-5" style="order: 1;">
+                    <div class="derecha">
+                        <div class="oculto2 divcenter">
+                            <h2>{{producto.nom_producto}}</h2>
+                            <br>
+                            <h5>{{producto.categoria}}</h5>
+                        </div>
+
+                        <div class="precio">
+                            <label for="precio" class="label-precio" id="precio">${{producto.precio}}</label>
+
+                            <div class="  divcant">
+
+                                <button class="btn btn-primary btncant"
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-
+                                    <i class="fas fa-minus"></i>
+                                </button>
+
+                                <div class="form-outline ">
+                                    <input id="form1" min="0" name="quantity" value="1" type="number"
+                                        class="form-control" />
+                                </div>
+
+                                <button class="btn btn-primary btncant"
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <label for="stock">Stock disponible {{producto.stock}}</label>
+                            <br>
+                            <a href="{% url 'addCarrito' producto.id_producto%}" class="btn-comprar">Añadir al carro</a>
+                        </div>
+
+                    </div>
+                </div>
+    </section>
+    <br> <br>
+
+    
+    <hr />
+    <section>
+        <div class="texto">
+            <h4>
+                Descripción
+            </h4>
+            <p>{{producto.descripcion}}</p>
+        </div>
+    </section>
+    <script>
+        var valor = document.getElementById("precio").textContent;
+        const res = valor.replace(/\D/g, "");
+        const peso = document.getElementById("precio").textContent;
+    </script>
+
+    <script src="{% static 'app/js/gallery.js'%}"></script>
+{% endblock body %}

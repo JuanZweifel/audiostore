@@ -1,0 +1,38 @@
+{% extends 'app/admin/plantilla_admin.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'app/' %} css/admin.css">
+    <link rel="stylesheet" href="{% static 'app/' %}css/modificar_producto.css ">
+{% endblock head %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row p-5 mt-5">
+        <div class="col-sm-2"></div>
+        <div class="divp col-sm-8 ">
+            <div class="divcenter">
+                <h1>Añádir Producto</h1>
+            </div>
+            
+            <form id="producto-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div id="formset-container">
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                    {{ form|crispy}}
+                    {% endfor %}
+                </div>
+                <div class="divcenter">
+                    <input class="btn btn-success" type="submit" value="Guardar">
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+{% endblock body %}
+{% block script %}
+<script src="js/admin.js"></script>
+{% endblock script %}

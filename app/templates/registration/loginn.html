@@ -1,0 +1,40 @@
+{% extends '../app/usuario/plantilla.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="container-fluid">
+<div class="row p-5 mt-5">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 ">
+        <form action="" method="post">
+            <div class="card shadow">
+                
+                <div class="card-body">
+                    <h4 class="card-title">Iniciar Sesión</h4>
+                        {% csrf_token %}
+                        {{form|crispy}}
+                    <div style="text-align: center;">
+                    <input type="submit" class="btn btn-primary" value="Iniciar Sesión">
+                    </div>
+                    <br>
+                    <div style="text-align: center;">
+                        <a href="{% url 'crearcuenta' %}">Crear cuenta</a>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+        </form>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+</div>
+
+
+
+
+
+{% endblock body %}
