@@ -129,8 +129,13 @@
                                     <span><strong>${{total}}</strong></span>
                                 </li>
                             </ul>
-                            <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href={% url 'checkout' %}
-                                role="button">Pagar</a>
+                            {% if not items %}
+                                <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href=""
+                                    role="button">Pagar</a>
+                            {% else %}
+                                <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href={% url 'checkout' %}
+                                    role="button">Pagar</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
