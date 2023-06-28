@@ -83,12 +83,22 @@
     {% for m in messages %}
     {% block alerta %}
     <script>
-        Swal.fire({
-            "title": "Felicitaciones",
-            "text": "{{m}}",
-            "icon": "success",
-            "confirmButtonColor": "#87b56d"
-        })
+        if("{{m}}"=="No se pudo eliminar la marca" || "{{m}}"=="No se pudo eliminar la categoria"){
+            Swal.fire({
+                "title": "Error",
+                "text": "{{m}}" + ", tiene productos asociados",
+                "icon": "error",
+                "confirmButtonColor": "#87b56d"
+            })
+        }
+        else{
+            Swal.fire({
+                "title": "Felicitaciones",
+                "text": "{{m}}",
+                "icon": "success",
+                "confirmButtonColor": "#87b56d"
+            })
+        }
     </script>
     {% endblock alerta %}
     {% endfor %}
