@@ -5,9 +5,9 @@ let dataTableIsInitialized;
 
 const dataTableOptions = {
     columnDefs: [
-        {className: "centered", targets: [0,1,2,3,4,5,6,7] },
-        {orderable:false, targets:[2,3,6,7]},
-        {searchable:false,targets:[2,3,6,7]},
+        {className: "centered", targets: [0,1,2,3,4,5,6] },
+        {orderable:false, targets:[2,3,6]},
+        {searchable:false,targets:[2,3,6]},
     ],
     pageLength: 4,
     destroy: true,
@@ -37,13 +37,7 @@ const listaproductos=async()=>{
         const data=await response.json();
 
         let content = ``;
-        data.productos.forEach((producto, index) => {
-            let tdAdicional = ' ';
-            if (index === 0) {
-                tdAdicional = '<td><a href="crearproductos" role="button" class="btn btn-primary text-light">Añádir producto</a></td>';
-            }
-            else
-                tdAdicional = '<td> </td>'
+        data.productos.forEach((producto) => {
             content += `
                 <tr>
                     <td>${producto.id_producto}</td>
@@ -56,7 +50,6 @@ const listaproductos=async()=>{
                     <a href="modificarproducto/ ${producto.id_producto}" role="button" class="btn btn-primary text-light">Modificar</a>
                     <a href="eliminarproducto/ ${producto.id_producto}" role="button" class="btn btn-danger text-light">Eliminar</a> </td>
                     </td>
-                    ${tdAdicional}
                 </tr>`;
         });
         table_body_clientes.innerHTML = content;
