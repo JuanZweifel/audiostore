@@ -283,7 +283,7 @@ def perfil_usuario(request):
     
     return render(request, 'app/usuario/perfil_usuario.html', contexto)
 
-
+@login_required
 def modificar_usuario(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
@@ -493,6 +493,7 @@ def categorias(request):
     return render(request,"app/admin/adminCategoria.html")
 
 
+@staff_member_required(login_url="loginn")
 def modificarcategoria(request,id):
     categoria=get_object_or_404(Categoria,id_cat=id)
     form = frmCategoria(instance=categoria)
@@ -555,7 +556,7 @@ def crearmarca(request):
     
     return render(request, "app/admin/adminCrearMarca.html", context)
 
-
+@staff_member_required(login_url="loginn")
 def modificarmarca(request,id):
     marca=get_object_or_404(Marca,id_marca=id)
     form = frmMarca(instance=marca)
