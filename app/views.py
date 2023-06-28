@@ -296,7 +296,7 @@ def modificar_usuario(request,id):
 
     return render(request,"app/usuario/modificar_usuario.html",contexto)
 
-@login_required
+@login_required(login_url="loginn")
 def carrito(request):
     items = Carrito.objects.filter(usuario = request.user)
     cantidad_items = Carrito.objects.filter(usuario = request.user).count()
