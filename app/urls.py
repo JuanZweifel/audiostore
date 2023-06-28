@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import include,path
 from .views import index, categoria, detalle_producto, index_admin, crear_cuenta, login_view, adminPedido, lista_pedidos, updatePedido
-from .views import perfil_usuario, modificar_usuario, removePedido
-from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito,checkout
+from .views import perfil_usuario, modificar_usuario, removePedido, lista_pedidos_usuario
+from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito, checkout, usuarioPedido
 from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente
 
 
@@ -29,7 +29,9 @@ urlpatterns = [
     path('checkout', checkout, name='checkout'),
     path('addPedido', addCarrito, name='addPedido'),
     path('adminPedido', adminPedido, name='adminPedido'),
+    path('usuarioPedido', usuarioPedido, name='usuarioPedido'),
     path('lista_pedidos',lista_pedidos, name='lista_pedidos'),
+    path('lista_pedidos_usuario',lista_pedidos_usuario, name='lista_pedidos_usuario'),
     path('removePedido/<id>/', removePedido, name='removePedido'),
     path('updatePedido/<id>/', updatePedido, name='updatePedido'),
     path('clientes_admin', clientes_admin, name= 'clientes_admin'),

@@ -263,7 +263,7 @@ def modificar_usuario(request,id):
 
     return render(request,"app/usuario/modificar_usuario.html",contexto)
 
-@login_required
+@login_required(login_url="loginn")
 def carrito(request):
     items = Carrito.objects.filter(usuario = request.user)
     cantidad_items = Carrito.objects.filter(usuario = request.user).count()
@@ -326,6 +326,19 @@ def adminPedido(request):
 @staff_member_required(login_url="loginn")
 def lista_pedidos(info):
     pedidos = list(Pedido.objects.values())
+    for pedido in pedidos:
+        idusuario = pedido['usuario_id']
+        pedido['usuario_id'] = User.objects.get(id=idusuario).username
+    data={'pedidos':pedidos}
+    return JsonResponse(data)
+
+@login_required
+def usuarioPedido(request):
+    return render(request, 'app/usuario/pedido_usuario.html')
+
+@login_required
+def lista_pedidos_usuario(request):
+    pedidos = list(Pedido.objects.filter(usuario_id = request.user.id).values())
     for pedido in pedidos:
         idusuario = pedido['usuario_id']
         pedido['usuario_id'] = User.objects.get(id=idusuario).username
