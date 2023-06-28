@@ -48,6 +48,9 @@
 
                     <a class="navbar-brand" aria-current="page" href="{% url 'categoria' %}">Productos</a>
                     <a class="navbar-brand" aria-current="page" href= "#" >Cuenta</a>
+                    {% if user.is_staff %}
+                        <a class="navbar-brand" href="{% url 'index_admin' %}">Ir al index de administrador</a>
+                        {% endif %}
 
                 </div>
 

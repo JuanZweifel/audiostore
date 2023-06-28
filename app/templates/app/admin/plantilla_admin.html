@@ -48,6 +48,7 @@
                     <a class="navbar-brand" aria-current="page" href="#">Categorias</a>
                     <a class="navbar-brand" aria-current="page" href="{% url 'clientes_admin' %}">Clientes</a>
                     <a class="navbar-brand" aria-current="page" href={% url 'adminPedido' %}>Pedidos</a>
+                    <a class="navbar-brand" aria-current="page" href={% url 'index' %}>Ir a index usuario</a>
                 </div>
                 <div style="position: right">
                     {% if user.is_authenticated %}
