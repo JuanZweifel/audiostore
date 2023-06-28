@@ -3,6 +3,11 @@
     font-family: sans-serif;
 }
 
+.navbar-nav a{
+    margin: auto;
+    margin-left: 1%;
+}
+
 .margen{
 margin-bottom: 3%;    
 }
