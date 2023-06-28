@@ -14,7 +14,7 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import formset_factory, modelformset_factory
 from .models import Producto, ImagenProducto, Marca, Categoria
-from .forms import frmProducto, frmImagen, ImageFormSet
+from .forms import frmProducto, frmImagen, ImageFormSet, frmCategoria, frmMarca
 from django.http.response import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -39,10 +39,18 @@ def index_admin(request):
     return render(request, 'app/admin/index_admin.html')
 
 def categoria(request):
-    producto=Producto.objects.all()
+    productos = Producto.objects.all()
+    
+    for producto in productos:
+        img = ImagenProducto.objects.filter(producto=producto)
+        
+        if img.exists():
+            producto.imagen=img[0]
+        
     context= {
-        "producto":producto
+        'productos':productos
     }
+    
     return render(request, 'app/usuario/categoria.html', context)
 
 def detalle_producto(request, id):
@@ -359,6 +367,22 @@ def adminPedido(request):
 @staff_member_required(login_url="loginn")
 def lista_pedidos(info):
     pedidos = list(Pedido.objects.values())
+    for pedido in pedidos:
+        idusuario = pedido['usuario_id']
+        pedido['usuario_id'] = User.objects.get(id=idusuario).username
+    data={'pedidos':pedidos}
+    return JsonResponse(data)
+
+@login_required
+def usuarioPedido(request):
+    return render(request, 'app/usuario/pedido_usuario.html')
+
+@login_required
+def lista_pedidos_usuario(request):
+    pedidos = list(Pedido.objects.filter(usuario_id = request.user.id).values())
+    for pedido in pedidos:
+        idusuario = pedido['usuario_id']
+        pedido['usuario_id'] = User.objects.get(id=idusuario).username
     data={'pedidos':pedidos}
     return JsonResponse(data)
 
@@ -367,6 +391,18 @@ def removePedido(request, id):
     item = get_object_or_404(Pedido,id=id)
     item.delete()
     messages.success(request,"Producto eliminado correctamente")  
+    return redirect(to="adminPedido")
+
+@staff_member_required(login_url="loginn")
+def updatePedido(request, id):
+    item = get_object_or_404(Pedido,id=id)
+    if item.estado == "No Retirado":
+        item.estado = "Retirado"
+        item.save(update_fields=["estado"])
+    else:
+        item.estado = "No Retirado"
+        item.save(update_fields=["estado"])
+    messages.success(request,"Estado cambiado correctamente")  
     return redirect(to="adminPedido")
 
 @staff_member_required(login_url="loginn")
@@ -418,3 +454,128 @@ def eliminar_cliente(request,id):
         return redirect(to="clientes_admin")
     
     return render(request,"app/admin/eliminar_cliente.html",contexto)
+
+@staff_member_required(login_url="loginn")
+def categoriaproducto(request):
+    if request.method=="POST":
+        form = frmCategoria(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            
+        return redirect(to="categorias") 
+    
+    else:
+        form = frmCategoria()
+
+    context={
+        "form":form,
+
+    }
+    
+    
+    return render(request, "app/admin/adminCrearCategoria.html", context)
+
+
+@staff_member_required(login_url="loginn")
+def lista_categorias(_request):
+    categorias = list(Categoria.objects.values())
+    
+    data={'categorias':categorias}
+    
+    return JsonResponse(data)
+
+
+@staff_member_required(login_url="loginn")
+def categorias(request):
+
+    
+    return render(request,"app/admin/adminCategoria.html")
+
+
+def modificarcategoria(request,id):
+    categoria=get_object_or_404(Categoria,id_cat=id)
+    form = frmCategoria(instance=categoria)
+    contexto={
+        "form":form,
+        "categoria":categoria
+    }
+    if request.method=="POST":
+        form=frmCategoria(data=request.POST,instance=categoria)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Categoria modificada correctamente")  
+            return redirect(to="categorias")
+    return render(request,"app/admin/adminModificarCategoria.html",contexto)
+
+
+
+@staff_member_required(login_url="loginn")
+def removeCategoria(request, id):
+    item = get_object_or_404(Categoria,id_cat=id)
+    item.delete()
+    messages.success(request,"Categoria eliminada correctamente")  
+    return redirect(to="categorias")
+
+
+
+@staff_member_required(login_url="loginn")
+def lista_marcas(_request):
+    marcas = list(Marca.objects.values())
+    
+    data={'marcas':marcas}
+    
+    return JsonResponse(data)
+
+
+@staff_member_required(login_url="loginn")
+def marcas(request):
+
+    
+    return render(request,"app/admin/adminMarca.html")
+
+
+@staff_member_required(login_url="loginn")
+def crearmarca(request):
+    if request.method=="POST":
+        form = frmMarca(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            
+        return redirect(to="marcas") 
+    
+    else:
+        form = frmMarca()
+
+    context={
+        "form":form,
+
+    }
+    
+    return render(request, "app/admin/adminCrearMarca.html", context)
+
+
+def modificarmarca(request,id):
+    marca=get_object_or_404(Marca,id_marca=id)
+    form = frmMarca(instance=marca)
+    contexto={
+        "form":form,
+        "marca":marca
+    }
+    if request.method=="POST":
+        form=frmMarca(data=request.POST,instance=marca)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Marca modificada correctamente")  
+            return redirect(to="marcas")
+    return render(request,"app/admin/adminModificarMarca.html",contexto)
+
+
+
+@staff_member_required(login_url="loginn")
+def removeMarca(request, id):
+    item = get_object_or_404(Marca,id_marca=id)
+    item.delete()
+    messages.success(request,"Marca eliminada correctamente")  
+    return redirect(to="marcas")

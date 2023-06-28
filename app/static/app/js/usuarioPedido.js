@@ -5,7 +5,7 @@ let dataTableIsInitialized;
 
 const dataTableOptions = {
     columnDefs: [
-        {className: "centered", targets: [0,1,2,3,4,5,6] },
+        {className: "centered", targets: [0,1,2,3,4] },
         {orderable:false, targets:[4]},
         {searchable:false,targets:[]},
     ],
@@ -33,7 +33,7 @@ const initDataTable = async () => {
 
 const listaPedidos=async()=>{
     try {
-        const response =await fetch("http://127.0.0.1:8000/lista_pedidos")
+        const response =await fetch("http://127.0.0.1:8000/lista_pedidos_usuario")
         const data=await response.json();
 
         let content = ``;
@@ -44,12 +44,7 @@ const listaPedidos=async()=>{
                     <td>${pedido.producto}</td>
                     <td>${pedido.precio}</td>
                     <td>${pedido.cantidad}</td>
-                    <td>${pedido.usuario_id}</td>
                     <td>${pedido.estado}</td>
-                    <td>
-                    <a class="btn btn-primary" href="#" onclick="updatePedido(${pedido.id})">Cambiar Estado</a>
-                    <a class="btn btn-danger" href="#" onclick="removePedido(${pedido.id})"><i class="fas fa-trash"></i></a>
-                    </td>
                 </tr>`;
         });
         table_body_pedidos.innerHTML = content;

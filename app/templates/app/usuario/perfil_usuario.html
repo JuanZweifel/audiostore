@@ -6,11 +6,7 @@
     <link rel="stylesheet" href="{% static 'img' %}">
 {% endblock head %}
 
-{% block title %}
-    <title>Mi cuenta</title>
-{% endblock title %}
-
-
+{% block title %}Mi cuenta{% endblock title %}
 
 {% block body %}
 <section>
@@ -21,7 +17,7 @@
                         <h3>Ajustes</h3>
                         <a href="{% url 'modificar_usuario' cliente.run %}">Modificar datos</a>
                         <br>
-                        <a href="pedido_usuario.html">Ver pedidos</a>
+                        <a href="{% url 'usuarioPedido' %}">Ver pedidos</a>
                     </div>
 
                     <div class="div-2" style="text-align: center;">

@@ -56,7 +56,12 @@ class Carrito(models.Model):
     cantidad = models.IntegerField(null=False)
 
 class Pedido(models.Model):
+    ESTADO = [
+        ("R","Retirado"),("NR","No Retirado")
+    ]
+    
     usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     producto = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False)
     cantidad = models.IntegerField(null=False)
+    estado = models.CharField(null=False, choices=ESTADO, max_length=50, default=ESTADO[1])

@@ -53,5 +53,15 @@ class frmImagen(forms.ModelForm):
         model = ImagenProducto
         fields = ["imagen"]
 
+class frmCategoria(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ["id_cat", "nom_cat"]
+        
+        
+class frmMarca(forms.ModelForm):
+    class Meta:
+        model = Marca
+        fields = ["id_marca", "nom_marca"]
 
 ImageFormSet = formset_factory(frmImagen, extra=0,max_num=5, can_delete=True, can_delete_extra=True)
