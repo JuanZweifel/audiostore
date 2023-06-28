@@ -259,7 +259,7 @@ def modificar_usuario(request,id):
         if form.is_valid():
             form.save()
             messages.success(request,"Cuenta modificada correctamente")
-            return redirect(to="index")
+            return redirect(to="perfil_usuario")
 
     return render(request,"app/usuario/modificar_usuario.html",contexto)
 
