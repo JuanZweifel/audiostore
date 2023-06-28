@@ -11,3 +11,10 @@ body {
 #productos .card:hover {
     opacity: 0.85;
 }
+
+.cardproduct {
+    /* max-height: 300px;
+    overflow: hidden; */
+}
+
+
