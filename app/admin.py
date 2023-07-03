@@ -1,4 +1,5 @@
 from django.contrib import admin
+from app.models import Categoria, Producto, Marca, Pedido
 from app.models import Categoria, Producto, Marca, ImagenProducto
 
 # Register your models here.
@@ -33,8 +34,16 @@ class admImagenProducto2(admin.ModelAdmin):
     class Meta:
         model=ImagenProducto
 
+class admPedido(admin.ModelAdmin):
+    list_display=["producto", "precio", "cantidad", "usuario_id", "estado"]
+    list_editable=["estado"]
+
+    class meta:
+        model=Pedido
+
 admin.site.register(Categoria, admCategoria)
 admin.site.register(Marca, admMarca)
 admin.site.register(Producto, amdProducto)
 admin.site.register(ImagenProducto, admImagenProducto2)
+admin.site.register(Pedido, admPedido)
 # Register your models here.

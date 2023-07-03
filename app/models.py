@@ -1,6 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 
 # Create your models here.
+validarletras = RegexValidator(r'^[a-zA-ZñÑ]*$', 'Ingrese solo letras')
+
 class Categoria(models.Model):
     id_cat=models.AutoField(primary_key=True, null=False)
     nom_cat=models.CharField(max_length=50, null=False)
@@ -31,3 +35,33 @@ class ImagenProducto(models.Model):
     producto = models.ForeignKey(Producto, on_delete= models.CASCADE, related_name="imagenes")
     def __str__(self):
         return f"{self.imagen}"
+
+
+class Cliente(models.Model):
+    
+    
+    usuario=models.OneToOneField(User, unique=True, related_name='perfil', on_delete=models.CASCADE)
+    
+    run=models.PositiveIntegerField(primary_key=True, null=False)   
+    primer_nombre=models.CharField(max_length=30, null=False, validators=[validarletras])
+    segundo_nombre=models.CharField(max_length=30, null=False, validators=[validarletras])
+    apellido_paterno=models.CharField(max_length=30, null=False, validators=[validarletras])
+    apellido_materno=models.CharField(max_length=30, null=False, validators=[validarletras])
+    correo=models.EmailField(max_length=254, unique=True)
+
+class Carrito(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.CharField(max_length=50, null=False)
+    precio = models.IntegerField(null=False)
+    cantidad = models.IntegerField(null=False)
+
+class Pedido(models.Model):
+    ESTADO = [
+        ("R","Retirado"),("NR","No Retirado")
+    ]
+    
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    producto = models.CharField(max_length=50, null=False)
+    precio = models.IntegerField(null=False)
+    cantidad = models.IntegerField(null=False)
+    estado = models.CharField(null=False, choices=ESTADO, max_length=50, default=ESTADO[1])

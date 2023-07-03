@@ -46,23 +46,38 @@
 
                 <div class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <a class="navbar-brand" aria-current="page" href="{% url 'login' %}">Logear</a>
-                    <a class="navbar-brand" aria-current="page" href="{% url 'categoria' %}">Productos</a>
-                    <a class="navbar-brand" aria-current="page" href= "#" >Cuenta</a>
+                    <a class="navbar-brand" aria-current="page" href="{% url 'categoria' %}">Productos |</a>
+                    {% comment %}<a class="navbar-brand" aria-current="page" href= "#" >Cuenta |</a> {% endcomment %}
+                    {% if user.is_staff %}
+                        <a class="navbar-brand" href="{% url 'index_admin' %}">Ir al index de administrador</a>
+                        {% endif %}
 
                 </div>
 
-                <form class="d-flex" role="search">
+                {% comment %} <form class="d-flex" role="search"> 
                     <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
                     <button class="btn btn-outline-success"
                         style="color: white; background-color:#AA77FF; border-color:white; "
                         type="submit">Search</button>
-                </form>
+                </form>{% endcomment %}
 
-                <a class="celular navbar-brand" href="carroCompra.html" style="margin-left: 2%;">
+                <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     <p>Carro de compra</p>
                 </a>
+
+                <div style="position: rigth">
+                    {% if user.is_staff %}
+                    <a class="navbar-brand" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+
+                    {% elif user.is_authenticated %}
+                        <a class="navbar-brand" href="{% url 'perfil_usuario' %}">{{user.username}}</a>
+                        <a class="navbar-brand" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+                        
+                        {% else %}
+                        <a class="navbar-brand" href="{% url 'loginn' %}"><i class="fa-solid fa-right-to-bracket fa-2xl"></i></i></a>
+                    {% endif %}
+                    </div>
 
             </div>
         </div>
@@ -83,6 +98,26 @@
         </p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            {% block alerta %}
+                <script>
+                    Swal.fire({
+                        "title": "Felicitaciones",
+                        "text": "{{m}}",
+                        "icon": "success",
+                        "confirmButtonColor": "#87b56d"
+                    })
+                </script>
+            {% endblock alerta %}
+        {% endfor %}
+    {% endif %}
+
+    {% block script %}
+    
+    {% endblock script %}
 
 </body>
 

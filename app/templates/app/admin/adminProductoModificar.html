@@ -2,24 +2,36 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block head %}
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="{% static 'app/css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'app/' %}css/modificar_producto.css ">
 {% endblock head %}
 {% block body %}
-    <h1>Modificar Producto</h1>
-    <h1>{{ img }}</h1>
-    <form id="producto-form" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h6>Editando a Producto: {{noticia.id_producto}}</h6>
-        {{ form | crispy }}
-        <div id="formset-container">
-            {{ formset.management_form }}
-            {% for form in formset %}
-                {{ form|crispy}}
-            {% endfor %}
+<div class="container-fluid">
+    <div class="row p-5 mt-1">
+        <div class="col-sm-2"></div>
+        <div class="divp col-sm-8 ">
+            <div class="divcenter">
+                <h1>Modificar Producto</h1>
+            </div>
+            <form id="producto-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div id="formset-container">
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                    {{ form|crispy}}
+                    {% endfor %}
+                </div>
+                <div class="divcenter">
+                    <input class="btn btn-success" type="submit" value="Modificar">
+                </div>
+            </form>
         </div>
-        <input type="submit" value="Modificar">
-    </form>
+        <div class="col-sm-2"></div>
+    </div>
+</div>
+
 {% endblock body %}
 {% block script %}
-    <script src="js/admin.js"></script>
+<script src="js/admin.js"></script>
 {% endblock script %}

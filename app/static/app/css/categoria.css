@@ -1,5 +1,5 @@
 body {
-    background: #414141;
+    background: #ffffff;
     padding-top: 4.5rem;
 }
 
@@ -10,4 +10,12 @@ body {
 
 #productos .card:hover {
     opacity: 0.85;
+}
+
+.cardp {
+    white-space: nowrap;
+        /* Hace que el texto se ajuste en una sola línea */
+    overflow: hidden;
+    /* Añade puntos suspensivos (...) al final del texto si se desborda */
+    text-overflow: ellipsis;
 }

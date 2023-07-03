@@ -1,0 +1,53 @@
+{% extends '../usuario/plantilla.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}<title>Mi cuenta</title>{% endblock title %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'app/css/modificar_usuario.css' %}">
+{% endblock head %}
+
+
+{% block body %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+
+        <div class="divp" id="principal">
+            <img src={% static 'app/img/administrador.png' %} alt="not found" class="img-user">
+            <h3 style="display: inline-block;">Modificar datos usuario</h3>
+        </div>
+
+        <div class="divp">
+            <form class="form-user" method="post" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <label for="run">Run</label>
+                <input class="form-control" type="text" disabled name="run" value="{{modificar.run}}">
+                <br>
+
+                {{ form|crispy }}
+                <div style="text-align: center;">
+                    <input class="btn btn-success" type="submit" value="Modificar">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-3"></div>
+</div>
+</div>
+
+
+
+{% endblock body %}
+
+
+{% block script %}
+<script src="js/log.js"></script>
+{% endblock script %}

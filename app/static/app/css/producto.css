@@ -30,6 +30,10 @@ img {
     cursor: pointer;
 }
 
+.divcenter {
+    text-align: center;
+}
+
 /* Next & previous buttons */
 .prev,
 .next {

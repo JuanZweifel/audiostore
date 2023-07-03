@@ -3,6 +3,19 @@
     font-family: sans-serif;
 }
 
+.navbar-nav a{
+    margin: auto;
+    margin-left: 1%;
+}
+
+.margen{
+margin-bottom: 3%;    
+}
+
+.navbar-brand:hover{
+    color: rgb(193, 192, 255);
+}
+
 .navbar a {
     color: white;
 }

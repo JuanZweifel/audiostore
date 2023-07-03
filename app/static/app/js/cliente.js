@@ -6,8 +6,8 @@ let dataTableIsInitialized;
 const dataTableOptions = {
     columnDefs: [
         {className: "centered", targets: [0,1,2,3,4,5,6] },
-        {orderable:false, targets:[2,3,6]},
-        {searchable:false,targets:[2,3,6]},
+        {orderable:false, targets:[6]},
+        {searchable:false,targets:[1,6]},
     ],
     pageLength: 4,
     destroy: true,
@@ -22,7 +22,7 @@ const initDataTable = async () => {
         dataTable.destroy();
     }
 
-    await listaproductos();
+    await listaclientes();
 
     dataTable = $("#datatable-responsive").DataTable(dataTableOptions);
 
@@ -31,24 +31,24 @@ const initDataTable = async () => {
 
 
 
-const listaproductos=async()=>{
+const listaclientes=async()=>{
     try {
-        const response =await fetch("http://127.0.0.1:8000/lista_productos/")
+        const response =await fetch("http://127.0.0.1:8000/lista_clientes/")
         const data=await response.json();
 
         let content = ``;
-        data.productos.forEach((producto) => {
+        data.clientes.forEach((cliente) => {
             content += `
                 <tr>
-                    <td>${producto.id_producto}</td>
-                    <td>${producto.nom_producto}</td>
-                    <td>${producto.precio}</td>
-                    <td>${producto.stock}</td>
-                    <td>${producto.categoria_id}</td>
-                    <td>${producto.marca_id}</td>
+                    <td>${cliente.run}</td>
+                    <td>${cliente.primer_nombre}</td>
+                    <td>${cliente.segundo_nombre}</td>
+                    <td>${cliente.apellido_paterno}</td>
+                    <td>${cliente.apellido_materno}</td>
+                    <td>${cliente.correo}</td>
                     <td>
-                    <a href="modificarproducto/ ${producto.id_producto}" role="button" class="btn btn-primary text-light">Modificar</a>
-                    <a href="eliminarproducto/ ${producto.id_producto}" role="button" class="btn btn-danger text-light">Eliminar</a> </td>
+                    <a href="modificar_cliente/ ${cliente.run}" role="button" class="btn btn-primary text-light">Modificar</a>
+                    <a href="eliminar_cliente/ ${cliente.run}" role="button" class="btn btn-danger text-light">Eliminar</a> </td>
                     </td>
                 </tr>`;
         });
@@ -62,5 +62,3 @@ const listaproductos=async()=>{
 window.addEventListener('load', async()=>{
     await initDataTable();
 });
-
-
