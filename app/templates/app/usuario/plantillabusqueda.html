@@ -28,6 +28,8 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <form method="GET" action="{% url 'categoria' %}">
+        {% csrf_token %}
     <!-- inicio barra de menu -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary nav fixed-top">
         <div class="container-fluid">
@@ -60,15 +62,12 @@
                         style="color: white; background-color:#AA77FF; border-color:white; "
                         type="submit">Search</button>
                 </form>{% endcomment %}
-                
-                <form method="GET" action="{% url 'categoria' %}">
-                    {% csrf_token %}
-                    <div>
-                        <label for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
-                        {{ form.busqueda }}
-                    </div>
-                    <button type="submit">Buscar</button>
-                </form>
+                <div>
+                    <label for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
+                    {{ form.busqueda }}
+                </div>
+                <button type="submit">Buscar</button>
+
                 <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     <p>Carro de compra</p>

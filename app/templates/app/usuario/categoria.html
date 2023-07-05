@@ -1,4 +1,4 @@
-{% extends '../usuario/plantilla.html' %}
+{% extends '../usuario/plantillabusqueda.html' %}
 {% load static %}
 
 {% block title %}
@@ -15,7 +15,21 @@
 
 {% block body %}
 
-    <div class="container-fluid">
+<div class="container-fluid">
+        {% comment %} <form method="GET" action="{% url 'categoria' %}">
+            {% csrf_token %} {% endcomment %}
+        {% comment %} <div>
+            <label for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
+            {{ form.busqueda }}
+        </div> {% endcomment %}
+        {% comment %} <div>
+            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+            {{ form.categoria }}
+        </div> {% endcomment %}
+        {% comment %} <button type="submit">Buscar</button> {% endcomment %}
+
+
+
         <div class="row">
             <!-- Filtro -->
             <div class="col-lg-3 col-md-3 col-sm-12">
@@ -49,6 +63,14 @@
                                 <li><a class="dropdown-item" href="#">Categoria 3</a></li>
                             </ul>
                         </div>
+                        <div>
+                            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+                            {{ form.categoria }}
+                        </div>
+                        <div>
+                            <label for="{{ form.marca.id_for_label }}">Marca:</label>
+                            {{ form.marca }}
+                        </div>
                         </p>
                     </div>
                 </div>
@@ -63,8 +85,11 @@
                                 <div class="card mt-2 cardproduct">
                                     <img src="media/{{producto.imagen}}" class="card-img-top" alt="N/A">
                                     <div class="card-body cardp">
-                                        <h3 class="card-title text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}</h3>
-                                        <p class="card-subtitle text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>
+                                        <h3 class="card-title text-center"
+                                            style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}
+                                        </h3>
+                                        <p class="card-subtitle text-center"
+                                            style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>
                                         <hr class="my-2" />
                                         <p class="card-text text-center">{{producto.precio}}</p>
                                     </div>
@@ -76,5 +101,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% endblock body %}
+    </form>
+</div>
+
+{% endblock body %}
