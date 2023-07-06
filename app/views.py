@@ -315,17 +315,20 @@ def addCarrito(request, id):
     user_cl = request.user
     producto = get_object_or_404(Producto, id_producto = id)
     carro_cliente = Carrito.objects.filter(usuario = user_cl)
-    producto_cliente = carro_cliente.filter(producto = producto.nom_producto)
-    if producto_cliente.count() >= 1:
-        producto_carro = producto_cliente.get(producto = producto.nom_producto)
-        cantidad = producto_carro.cantidad
-        producto_carro.cantidad = cantidad + 1
-        producto_carro.save()
-        messages.success(request,"Se ha sumado el producto a su carro")
+    producto_cliente = carro_cliente.filter(id_producto = producto.id_producto)
+    if producto.stock > 0:
+        if producto_cliente.count() >= 1:
+            producto_carro = producto_cliente.get(id_producto = producto.id_producto)
+            cantidad = producto_carro.cantidad
+            producto_carro.cantidad = cantidad + 1
+            producto_carro.save()
+            messages.success(request,"Se ha sumado el producto a su carro")
+        else:
+            item = Carrito(usuario=user_cl,id_producto=producto.id_producto, producto=producto.nom_producto, precio=producto.precio, cantidad=1)
+            item.save()
+            messages.error(request,"Producto añadido al carro correctamente")
     else:
-        item = Carrito(usuario=user_cl,producto=producto.nom_producto, precio=producto.precio, cantidad=1)
-        item.save()
-        messages.success(request,"Producto añadido al carro correctamente")
+        messages.success(request,"No hay stock del producto")
     return redirect(to='categoria')
 
 @login_required
@@ -342,11 +345,19 @@ def checkout(request):
     if request.method == "POST":
         form = frmPago(data=request.POST)
         carrito_filas = Carrito.objects.filter(usuario = request.user)
+        #Creacion de la instancia en Pedido
         pedido_usu = Pedido(usuario=request.user)
         pedido_usu.save()
+        #Rellenado del DetallePedido con la intancia Pedido
         for fila in carrito_filas:
-            detalle_pedido = DetallePedido(pedido=pedido_usu, producto=fila.producto, precio=fila.precio, cantidad=fila.cantidad)
+            detalle_pedido = DetallePedido(pedido=pedido_usu,id_producto=fila.id_producto, producto=fila.producto, precio=fila.precio, cantidad=fila.cantidad)
             detalle_pedido.save()
+            producto_carro = fila.id_producto
+            producto = Producto.objects.get(id_producto=producto_carro)
+            cantidad = producto.stock
+            producto.stock = cantidad - fila.cantidad
+            producto.save()
+        
         items.delete()
         return redirect(to="index")# Cambiar a "pedidos usuario" cuando este hecho
         
@@ -373,6 +384,15 @@ def adminPedidoDetalle(request, id):
     }
     return render(request, 'app/admin/adminPedidoDetalle.html', context)
 
+@login_required(login_url="loginn")
+def pedidoDetalle(request, id):
+    items = DetallePedido.objects.filter(pedido=id)
+
+    context = {
+        "items": items
+    }
+    return render(request, 'app/usuario/pedidoDetalle.html', context)
+
 @staff_member_required(login_url="loginn")
 def lista_pedidos(info):
     pedidos = list(Pedido.objects.values())
@@ -398,9 +418,23 @@ def lista_pedidos_usuario(request):
 @staff_member_required(login_url="loginn")
 def removePedido(request, id):
     item = get_object_or_404(Pedido,id=id)
+    detalles_filas = DetallePedido.objects.filter(pedido_id = id)
+
+    for fila in detalles_filas:
+        producto = Producto.objects.get(id_producto=fila.id_producto)
+        cantidad = producto.stock
+        producto.stock = cantidad + fila.cantidad
+        producto.save()
     item.delete()
-    messages.success(request,"Producto eliminado correctamente")  
+    messages.success(request,"Pedido eliminado correctamente")  
     return redirect(to="adminPedido")
+
+@login_required(login_url="loginn")
+def removePedidoUser(request, id):
+    item = get_object_or_404(Pedido,id=id)
+    item.delete()
+    messages.success(request,"Pedido eliminado correctamente")  
+    return redirect(to="usuarioPedido")
 
 @staff_member_required(login_url="loginn")
 def updatePedido(request, id):

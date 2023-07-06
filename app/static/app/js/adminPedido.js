@@ -43,8 +43,8 @@ const listaPedidos=async()=>{
                     <td>${pedido.id}</td>
                     <td>${pedido.usuario_id}</td>
                     <td>${pedido.estado}</td>
+
                     <td>
-                    
                     <a class="btn btn-primary" href="#" onclick="updatePedido(${pedido.id})">Cambiar Estado</a>
                     <a class="btn btn-success" href="adminPedidoDetalle/${pedido.id}">Ver detalle</a>
                     <a class="btn btn-danger" href="#" onclick="removePedido(${pedido.id})"><i class="fas fa-trash"></i></a>

@@ -8,7 +8,7 @@ from .views import lista_marcas, marcas, crearmarca, modificarmarca,removeMarca
 from .views import index, categoria, detalle_producto, index_admin, crear_cuenta, login_view, adminPedido, lista_pedidos, updatePedido
 from .views import perfil_usuario, modificar_usuario, removePedido, lista_pedidos_usuario
 from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito, checkout, usuarioPedido
-from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente, adminPedidoDetalle
+from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente, adminPedidoDetalle, pedidoDetalle, removePedidoUser
 
 
 from .views import modificarproducto, eliminarproducto,productos
@@ -49,10 +49,12 @@ urlpatterns = [
     path('lista_pedidos',lista_pedidos, name='lista_pedidos'),
     path('lista_pedidos_usuario',lista_pedidos_usuario, name='lista_pedidos_usuario'),
     path('removePedido/<id>/', removePedido, name='removePedido'),
+    path('removePedidoUser/<id>/', removePedidoUser, name='removePedidoUser'),
     path('updatePedido/<id>/', updatePedido, name='updatePedido'),
     path('clientes_admin', clientes_admin, name= 'clientes_admin'),
     path('lista_clientes/',lista_clientes, name='lista_clientes'),
     path('modificar_cliente/<id>', modificar_cliente, name='modificar_cliente'),
     path('eliminar_cliente/<id>',eliminar_cliente, name='eliminar_cliente' ),
-    path('adminPedidoDetalle/<id>', adminPedidoDetalle, name='adminPedidoDetalle')
+    path('adminPedidoDetalle/<id>', adminPedidoDetalle, name='adminPedidoDetalle'),
+    path('pedidoDetalle/<id>', pedidoDetalle, name='pedidoDetalle'),
 ]
