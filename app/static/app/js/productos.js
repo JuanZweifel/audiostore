@@ -47,8 +47,8 @@ const listaproductos=async()=>{
                     <td>${producto.categoria_id}</td>
                     <td>${producto.marca_id}</td>
                     <td>
-                    <a href="modificarproducto/ ${producto.id_producto}" role="button" class="btn btn-primary text-light">Modificar</a>
-                    <a href="eliminarproducto/ ${producto.id_producto}" role="button" class="btn btn-danger text-light">Eliminar</a> </td>
+                    <a href="modificarproducto/${producto.id_producto}" role="button" class="btn btn-primary text-light">Modificar</a>
+                    <a href="eliminarproducto/${producto.id_producto}" role="button" class="btn btn-danger text-light">Eliminar</a> </td>
                     </td>
                 </tr>`;
         });

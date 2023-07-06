@@ -280,15 +280,13 @@ def perfil_usuario(request):
 def modificar_usuario(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
-    form = frmModifDatosCliente(instance=modificar)
+    form = frmModifDatosCliente(data=request.POST or None, instance=modificar)
     contexto={
         "form":form,
         "modificar":modificar
     }
     
     if request.method=="POST":
-        
-        form=frmModifDatosCliente(data=request.POST,instance=modificar)
         
         if form.is_valid():
             form.save()
@@ -414,15 +412,13 @@ def lista_clientes(_request):
 def modificar_cliente(request,id):
     modificar=get_object_or_404(Cliente,run=id)
     
-    form = frmModifDatosCliente(instance=modificar)
+    form = frmModifDatosCliente(data=request.POST or None, instance=modificar)
     contexto={
         "form":form,
         "modificar":modificar
     }
     
     if request.method=="POST":
-        
-        form=frmModifDatosCliente(data=request.POST,instance=modificar)
         
         if form.is_valid():
             form.save()
