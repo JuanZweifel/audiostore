@@ -307,9 +307,10 @@ def carrito(request):
         'total':total,
         'cantidad':cantidad_items
     }
+
     return render(request, 'app/usuario/carroCompra.html', data)
 
-@login_required
+@login_required(login_url="loginn")
 def addCarrito(request, id):
     user_cl = request.user
     producto = get_object_or_404(Producto, id_producto = id)
@@ -320,9 +321,11 @@ def addCarrito(request, id):
         cantidad = producto_carro.cantidad
         producto_carro.cantidad = cantidad + 1
         producto_carro.save()
+        messages.success(request,"Se ha sumado el producto a su carro")
     else:
         item = Carrito(usuario=user_cl,producto=producto.nom_producto, precio=producto.precio, cantidad=1)
         item.save()
+        messages.success(request,"Producto añadido al carro correctamente")
     return redirect(to='categoria')
 
 @login_required

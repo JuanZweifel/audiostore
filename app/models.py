@@ -64,4 +64,4 @@ class Pedido(models.Model):
     producto = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False)
     cantidad = models.IntegerField(null=False)
-    estado = models.CharField(null=False, choices=ESTADO, max_length=50, default=ESTADO[1])
+    estado = models.CharField(null=False, choices=ESTADO, max_length=50, default="No Retirado")
