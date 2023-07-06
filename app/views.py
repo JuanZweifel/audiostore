@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required,permission_required
 from django.http.response import JsonResponse
 from .models import Producto, Cliente
-from .models import Producto,Carrito,Pedido
+from .models import Producto,Carrito,Pedido, DetallePedido
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .forms import LoginForm, frmCrearCuenta, frmPerfilCliente, frmModifDatosCliente
@@ -342,13 +342,17 @@ def checkout(request):
     if request.method == "POST":
         form = frmPago(data=request.POST)
         carrito_filas = Carrito.objects.filter(usuario = request.user)
-        for fila in carrito_filas.values():
-            Pedido.objects.create(**fila)
+        pedido_usu = Pedido(usuario=request.user)
+        pedido_usu.save()
+        for fila in carrito_filas:
+            detalle_pedido = DetallePedido(pedido=pedido_usu, producto=fila.producto, precio=fila.precio, cantidad=fila.cantidad)
+            detalle_pedido.save()
         items.delete()
         return redirect(to="index")# Cambiar a "pedidos usuario" cuando este hecho
         
     else:
         form = frmPago()
+
     context = {
         'items':items,
         'total':total,
@@ -359,6 +363,15 @@ def checkout(request):
 @staff_member_required(login_url="loginn")
 def adminPedido(request):
     return render(request, 'app/admin/adminPedido.html')
+
+@staff_member_required(login_url="loginn")
+def adminPedidoDetalle(request, id):
+    items = DetallePedido.objects.filter(pedido=id)
+
+    context = {
+        "items": items
+    }
+    return render(request, 'app/admin/adminPedidoDetalle.html', context)
 
 @staff_member_required(login_url="loginn")
 def lista_pedidos(info):
@@ -513,7 +526,7 @@ def removeCategoria(request, id):
     messages.success(request,"No se pudo eliminar la categoria")
     
     try:
-        cat = Producto.objects.get(categoria=item)
+        cat = Producto.objects.filter(categoria=item)
         
     except Producto.DoesNotExist:
         item.delete()
@@ -583,7 +596,7 @@ def removeMarca(request, id):
     
     messages.success(request,"No se pudo eliminar la marca") 
     try:
-        pro = Producto.objects.get(marca=item)
+        pro = Producto.objects.filter(marca=item)
         
     except Producto.DoesNotExist:
         item.delete()

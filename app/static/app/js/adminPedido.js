@@ -5,9 +5,9 @@ let dataTableIsInitialized;
 
 const dataTableOptions = {
     columnDefs: [
-        {className: "centered", targets: [0,1,2,3,4,5,6] },
-        {orderable:false, targets:[4]},
-        {searchable:false,targets:[]},
+        {className: "centered", targets: [0,1,2,3] },
+        {orderable:false, targets:[3]},
+        {searchable:false,targets:[3]},
     ],
     pageLength: 4,
     destroy: true,
@@ -41,13 +41,12 @@ const listaPedidos=async()=>{
             content += `
                 <tr>
                     <td>${pedido.id}</td>
-                    <td>${pedido.producto}</td>
-                    <td>${pedido.precio}</td>
-                    <td>${pedido.cantidad}</td>
                     <td>${pedido.usuario_id}</td>
                     <td>${pedido.estado}</td>
                     <td>
+                    
                     <a class="btn btn-primary" href="#" onclick="updatePedido(${pedido.id})">Cambiar Estado</a>
+                    <a class="btn btn-success" href="adminPedidoDetalle/${pedido.id}">Ver detalle</a>
                     <a class="btn btn-danger" href="#" onclick="removePedido(${pedido.id})"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>`;
