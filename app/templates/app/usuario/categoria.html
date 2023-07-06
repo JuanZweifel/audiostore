@@ -62,9 +62,9 @@
                             <a href="{% url 'detalle_producto' producto.id_producto %}">
                                 <div class="card mt-2 cardproduct">
                                     <img src="media/{{producto.imagen}}" class="card-img-top" alt="N/A">
-                                    <div class="card-body">
-                                        <h3 class="card-title text-center">{{producto.nom_producto}}</h3>
-                                        <p class="card-subtitle text-center">{{producto.marca}}</p>
+                                    <div class="card-body cardp">
+                                        <h3 class="card-title text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}</h3>
+                                        <p class="card-subtitle text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>
                                         <hr class="my-2" />
                                         <p class="card-text text-center">{{producto.precio}}</p>
                                     </div>

@@ -41,7 +41,7 @@ const listacategorias=async()=>{
                     <td>${marca.id_marca}</td>
                     <td>${marca.nom_marca}</td>
                     <td class="centered">
-                    <a href="modificarmarca/ ${marca.id_marca}" role="button" class="btn btn-primary text-light">Modificar</a>
+                    <a href="modificarmarca/${marca.id_marca}" role="button" class="btn btn-primary text-light">Modificar</a>
                     <a class="btn btn-danger" href="#" onclick="removeMarca(${marca.id_marca})"><i class="fas fa-trash"></i></a> </td>
                     </td>
                 </tr>`;

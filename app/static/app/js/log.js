@@ -5,24 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
 function validaciones(evento) {
     evento.preventDefault();
 
-    var inputTexto = document.getElementById("nombre");
-    var regex = /^[A-Za-z\s]+$/; // Expresión regular para solo texto (mayúsculas, minúsculas y espacios)
-    if (!regex.test(inputTexto.value)) {
-        alert("El nombre solo debe tener letras");
-        return;
-    }
-
-    var inputTexto = document.getElementById("apellido");
-    var regex = /^[A-Za-z\s]+$/;
-    if (!regex.test(inputTexto.value)) {
-        alert("El apellido solo debe tener letras");
-        return;
-    }
-
     //Validar rut
-    var rut = document.getElementById('rut').value;
+    var rut = document.getElementById('id_run').value;
     if (!/^[0-9]+-[0-9kK]{1}$/.test(rut)) {
-        alert('Por favor ingrese un Rut válido.');
+        Swal.fire({
+            "title":"Error!!!",
+            "text":"El run ingresado no es valido",
+            "icon":"error",
+    })
         return false;
     }
     var rutSinGuion = rut.replace('-', '');
@@ -35,7 +25,11 @@ function validaciones(evento) {
     }
     var digitoVerificadorCalculado = (s ? s - 1 : 'K');
     if (rutDigitoVerificador !== digitoVerificadorCalculado.toString()) {
-        alert('Por favor ingrese un Rut válido.');
+        Swal.fire({
+                "title":"Error!!!",
+                "text":"El run ingresado no es valido",
+                "icon":"error",
+        })
         return false;
     }
 

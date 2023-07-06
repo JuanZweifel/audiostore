@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 # Create your models here.
-validarletras = RegexValidator(r'^[a-zA-ZñÑ]*$', 'Ingrese solo letras')
-
+validarletras = RegexValidator(r'^[a-zA-ZñÑ]*$', 'Ingrese solo letras y sin espacios')
 class Categoria(models.Model):
     id_cat=models.AutoField(primary_key=True, null=False)
     nom_cat=models.CharField(max_length=50, null=False)
@@ -42,7 +41,7 @@ class Cliente(models.Model):
     
     usuario=models.OneToOneField(User, unique=True, related_name='perfil', on_delete=models.CASCADE)
     
-    run=models.PositiveIntegerField(primary_key=True, null=False)   
+    run=models.CharField(primary_key=True, null=False, max_length=10)   
     primer_nombre=models.CharField(max_length=30, null=False, validators=[validarletras])
     segundo_nombre=models.CharField(max_length=30, null=False, validators=[validarletras])
     apellido_paterno=models.CharField(max_length=30, null=False, validators=[validarletras])
