@@ -18,10 +18,8 @@
                     <thead class="table-primary">
                         <tr>
                             <th class="centered">Id Pedido</th>
-                            <th class="centered">Producto</th>
-                            <th class="centered">Precio</th>
-                            <th class="centered">Cantidad</th>
                             <th class="centered">Estado</th>
+                            <th class="centered">Opciones</th>
                         </tr>
                     </thead>
                     <tbody id="table_body_pedidos">
@@ -48,3 +46,23 @@
 
 <script src="{% static 'app/js/usuarioPedido.js' %}"></script>
 {% endblock body %}
+{% block script %}
+    <script>
+        function removePedidoUser(id){
+            Swal.fire({
+                "title":"¿Estas seguro?",
+                "text":"Esta accion no se puede deshacer",
+                "icon":"question",
+                "showCancelButton":true,
+                "cancelButtonText":"Cancelar",
+                "confirmButtonText":"Si, Eliminar",
+                "reverseButtons":true
+            })
+            .then(function(result) {
+                if(result.isConfirmed) {
+                    window.location.href = "/removePedidoUser/"+id
+                }
+            })
+        }
+    </script>
+{% endblock script %}

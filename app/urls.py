@@ -8,9 +8,9 @@ from .views import lista_marcas, marcas, crearmarca, modificarmarca,removeMarca
 from .views import index, categoria, detalle_producto, index_admin, crear_cuenta, login_view, adminPedido, lista_pedidos, updatePedido
 from .views import perfil_usuario, modificar_usuario, removePedido, lista_pedidos_usuario
 from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito, checkout, usuarioPedido
-from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente
 from .views import modificarproducto, eliminarproducto,productos
 from .views import index, categoria, detalle_producto, index_admin, crearproducto, lista_productos, change_password
+from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente, adminPedidoDetalle, pedidoDetalle, removePedidoUser
 
 
 
@@ -42,7 +42,7 @@ urlpatterns = [
     path('perfil_usuario', perfil_usuario, name='perfil_usuario'),
     path('modificar_usuario/<id>', modificar_usuario, name='modificar_usuario'),
     path('carro', carrito, name='carro'),
-    path('addCarrito/<id>/', addCarrito, name='addCarrito'),
+    path('addCarrito/<id>/<cantidad_pag>/', addCarrito, name='addCarrito'),
     path('removeCarrito/<id>/', removeCarrito, name='removeCarrito'),
     path('checkout', checkout, name='checkout'),
     path('addPedido', addCarrito, name='addPedido'),
@@ -51,10 +51,13 @@ urlpatterns = [
     path('lista_pedidos',lista_pedidos, name='lista_pedidos'),
     path('lista_pedidos_usuario',lista_pedidos_usuario, name='lista_pedidos_usuario'),
     path('removePedido/<id>/', removePedido, name='removePedido'),
+    path('removePedidoUser/<id>/', removePedidoUser, name='removePedidoUser'),
     path('updatePedido/<id>/', updatePedido, name='updatePedido'),
     path('clientes_admin', clientes_admin, name= 'clientes_admin'),
     path('lista_clientes/',lista_clientes, name='lista_clientes'),
     path('modificar_cliente/<id>', modificar_cliente, name='modificar_cliente'),
     path('eliminar_cliente/<id>',eliminar_cliente, name='eliminar_cliente' ),
     path(r'^password/$',change_password, name='change_password'),
+    path('adminPedidoDetalle/<id>', adminPedidoDetalle, name='adminPedidoDetalle'),
+    path('pedidoDetalle/<id>', pedidoDetalle, name='pedidoDetalle'),
 ]
