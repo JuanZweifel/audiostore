@@ -9,10 +9,12 @@ from .views import index, categoria, detalle_producto, index_admin, crear_cuenta
 from .views import perfil_usuario, modificar_usuario, removePedido, lista_pedidos_usuario
 from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito, checkout, usuarioPedido
 from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente
-
-
 from .views import modificarproducto, eliminarproducto,productos
-from .views import index, categoria, detalle_producto, index_admin, crearproducto, lista_productos
+from .views import index, categoria, detalle_producto, index_admin, crearproducto, lista_productos, change_password
+
+
+
+
 urlpatterns = [
     path('', index, name='index'),
     path('categoria', categoria, name='categoria'),
@@ -54,4 +56,5 @@ urlpatterns = [
     path('lista_clientes/',lista_clientes, name='lista_clientes'),
     path('modificar_cliente/<id>', modificar_cliente, name='modificar_cliente'),
     path('eliminar_cliente/<id>',eliminar_cliente, name='eliminar_cliente' ),
+    path(r'^password/$',change_password, name='change_password'),
 ]
