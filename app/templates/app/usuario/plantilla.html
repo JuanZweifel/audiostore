@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
+    {% load crispy_forms_tags %}
     <title>
         {% block title %}
 
@@ -20,6 +21,9 @@
     <!-- Font Awesome 5 Icons-->
     <script src="https://kit.fontawesome.com/19e0d6ad15.js" crossorigin="anonymous"></script>
 
+    <!-- W3school css -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <link rel="stylesheet" href="{% static 'app/' %}css/style.css ">
 
     {% block head %}
@@ -28,12 +32,39 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <form method="GET" action="{% url 'categoria' %}">
+        {% csrf_token %}
+
+        <!-- Sidebar -->
+        <div class="w3-sidebar w3-bar-block" style="display:none;z-index:9999; position: absolute; top: 0; left: 0;"
+            id="mySidebar">
+            <button type="button" class="w3-bar-item w3-button w3-xxlarge" onclick="w3_close()">Cerrar &times;</button>
+
+
+            {% for opcion_value, opcion_label in form.categoria.field.choices %}
+            <button type="submit" class="w3-bar-item w3-button" name="categoria" id="categoria_{{ opcion_value }}"
+                value="{{ opcion_value }}">
+                {{ opcion_label }}
+            </button>
+            {% endfor %}
+        </div>
+    </form>
+    <!-- Page Content -->
+    <div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+
+
+
+
     <!-- inicio barra de menu -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary nav fixed-top">
         <div class="container-fluid">
+            <button type="button" onclick="w3_open()" style="border: none; background-color: transparent;">
+                <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
+            </button>
             <div class="d-flex" style="padding-left: 2%; padding-right: 2%; color: white;">
                 <a class="navbar-brand" href="{% url 'index' %}">
-                    <i class="fa-solid fa-house fa-xl"></i>
+                    <img src="{% static 'app/' %}img/LOGO_BLANCO.png " style="height: 4rem" alt="N/A">
                 </a>
             </div>
 
@@ -47,20 +78,20 @@
                 <div class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <a class="navbar-brand" aria-current="page" href="{% url 'categoria' %}">Productos |</a>
-                    {% comment %}<a class="navbar-brand" aria-current="page" href= "#" >Cuenta |</a> {% endcomment %}
+                    {% comment %}<a class="navbar-brand" aria-current="page" href="#">Cuenta |</a> {% endcomment %}
                     {% if user.is_staff %}
-                        <a class="navbar-brand" href="{% url 'index_admin' %}">Ir al index de administrador</a>
-                        {% endif %}
+                    <a class="navbar-brand" href="{% url 'index_admin' %}">Ir al index de administrador</a>
+                    {% endif %}
 
                 </div>
-
-                {% comment %} <form class="d-flex" role="search"> 
-                    <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
-                    <button class="btn btn-outline-success"
-                        style="color: white; background-color:#AA77FF; border-color:white; "
-                        type="submit">Search</button>
-                </form>{% endcomment %}
-
+                <form method="GET" action="{% url 'categoria' %}" id="fprincipal">
+                    {% csrf_token %}
+                    <div>
+                        <label class="d-inline" for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
+                        {{ form.busqueda }}
+                    </div>
+                    <button class="d-inline" type="submit">Buscar</button>
+                </form>
                 <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
                     <p>Carro de compra</p>
@@ -68,16 +99,21 @@
 
                 <div style="position: rigth">
                     {% if user.is_staff %}
-                    <a class="navbar-brand" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+                    <a class="navbar-brand" href="{% url 'logout' %}"><i
+                            class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
 
                     {% elif user.is_authenticated %}
-                        <a class="navbar-brand" href="{% url 'perfil_usuario' %}">{{user.username}}</a>
-                        <a class="navbar-brand" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
-                        
-                        {% else %}
-                        <a class="navbar-brand" href="{% url 'loginn' %}"><i class="fa-solid fa-right-to-bracket fa-2xl"></i></i></a>
+                    <a class="navbar-brand" href="{% url 'perfil_usuario' %}">
+                        <i class="fa-solid fa-user fa-xl" style="color: #ffffff;"></i>
+                    </a>
+                    <a class="navbar-brand" href="{% url 'logout' %}"><i
+                            class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+
+                    {% else %}
+                    <a class="navbar-brand" href="{% url 'loginn' %}"><i
+                            class="fa-solid fa-right-to-bracket fa-2xl"></i></i></a>
                     {% endif %}
-                    </div>
+                </div>
 
             </div>
         </div>
@@ -101,22 +137,35 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {% if messages %}
-        {% for m in messages %}
-            {% block alerta %}
-                <script>
-                    Swal.fire({
-                        "title": "Felicitaciones",
-                        "text": "{{m}}",
-                        "icon": "success",
-                        "confirmButtonColor": "#87b56d"
-                    })
-                </script>
-            {% endblock alerta %}
-        {% endfor %}
+    {% for m in messages %}
+    {% block alerta %}
+    <script>
+        Swal.fire({
+            "title": "Felicitaciones",
+            "text": "{{m}}",
+            "icon": "success",
+            "confirmButtonColor": "#87b56d"
+        })
+    </script>
+    {% endblock alerta %}
+    {% endfor %}
     {% endif %}
 
+
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
+        }
+    </script>
+
     {% block script %}
-    
+
     {% endblock script %}
 
 </body>

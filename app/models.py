@@ -22,7 +22,7 @@ class Producto(models.Model):
     id_producto = models.AutoField(primary_key= True, null=False)
     nom_producto = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False)
-    descripcion = models.TextField(max_length=300, null=False)
+    descripcion = models.TextField(null=True)
     stock = models.IntegerField(null=False)
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     marca = models.ForeignKey(Marca, on_delete=models.PROTECT)
@@ -50,6 +50,7 @@ class Cliente(models.Model):
 class Carrito(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     id_producto = models.IntegerField(null=True)
+    img = models.ImageField(null=True)
     producto = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False)
     cantidad = models.IntegerField(null=False)

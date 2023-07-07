@@ -1,6 +1,6 @@
 body {
     background: #ffffff;
-    padding-top: 4.5rem;
+    padding-top: 6rem;
 }
 
 #productos a {
@@ -10,6 +10,18 @@ body {
 
 #productos .card:hover {
     opacity: 0.85;
+}
+
+#id_categoria {
+    font-family: sans-serif;
+    border-radius: 5px;
+    height: 2.5rem;
+}
+
+#id_marca {
+    font-family: sans-serif;
+    border-radius: 5px;
+    height: 2.5rem;
 }
 
 .cardp {
