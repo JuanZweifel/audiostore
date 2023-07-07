@@ -442,6 +442,13 @@ def removePedido(request, id):
 @login_required(login_url="loginn")
 def removePedidoUser(request, id):
     item = get_object_or_404(Pedido,id=id)
+    detalles_filas = DetallePedido.objects.filter(pedido_id = id)
+
+    for fila in detalles_filas:
+        producto = Producto.objects.get(id_producto=fila.id_producto)
+        cantidad = producto.stock
+        producto.stock = cantidad + fila.cantidad
+        producto.save()
     item.delete()
     messages.success(request,"Pedido eliminado correctamente")  
     return redirect(to="usuarioPedido")
