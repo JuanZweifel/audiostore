@@ -51,6 +51,7 @@ class Cliente(models.Model):
 class Carrito(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     id_producto = models.IntegerField(null=True)
+    img = models.ImageField(null=True)
     producto = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False)
     cantidad = models.IntegerField(null=False)
