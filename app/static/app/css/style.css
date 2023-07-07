@@ -1,5 +1,35 @@
 
+.btnbusqueda {
+    padding: 10px;
+    background-color: #ffff;
+    margin-right: 10px;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 
+}
+
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.search-bar button[type="submit"] {
+    background: none;
+    border: none;
+    margin-left: 5px;
+    cursor: pointer;
+}
 
 .navbar {
     background-color: #191919;
@@ -73,42 +103,18 @@ h1 {
 
 
 
-@media screen and (max-width: 991px) {
+@media screen and (min-width: 280px) and (max-width: 600px) {
 
-.celular p {
-    display: none;
-    margin: 0%;
-    padding: 0%;
-}
-
-.celular i {
-    display: block;
-    margin: 0%;
-    padding: 0%;
-}
-
-divicono{
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-
-.navbar-nav a {
-    font-family: sans-serif;
-    border-bottom-style: solid;
-}
-
-.navbar-brand a {
-    font-family: sans-serif;
-    border-bottom-style: solid;  
-}
-
-.d-flex a{
-    border-bottom-style: solid;
-}
-
-#moneda{
-    margin-bottom: 10px;
-}
+    .contenido_nav {
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+        padding: 0;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+    }
+    
 
 
 

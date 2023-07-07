@@ -42,13 +42,13 @@ def index_admin(request):
     return render(request, 'app/admin/index_admin.html')
 
 def categoria(request):
-    form = BusquedaForm(request.GET)
+    formbusqueda = BusquedaForm(request.GET)
     productos = Producto.objects.all()
 
-    if form.is_valid():
-        busqueda = form.cleaned_data.get('busqueda')
-        categoria_id = form.cleaned_data.get('categoria')
-        marca_id = form.cleaned_data.get('marca')
+    if formbusqueda.is_valid():
+        busqueda = formbusqueda.cleaned_data.get('busqueda')
+        categoria_id = formbusqueda.cleaned_data.get('categoria')
+        marca_id = formbusqueda.cleaned_data.get('marca')
         
         
         if busqueda:
@@ -68,7 +68,7 @@ def categoria(request):
             producto.imagen=img[0]
         
     context= {
-        'form':form,
+        'formbusqueda':formbusqueda,
         'productos':productos
     }
     

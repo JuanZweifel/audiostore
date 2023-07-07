@@ -40,12 +40,17 @@
             id="mySidebar">
             <button type="button" class="w3-bar-item w3-button w3-xxlarge" onclick="w3_close()">Cerrar &times;</button>
 
+            <a class="w3-bar-item w3-button" aria-current="page" href="{% url 'categoria' %}">Productos</a>
 
             {% for opcion_value, opcion_label in formbusqueda.categoria.field.choices %}
+
+            {% if opcion_value %}
             <button type="submit" class="w3-bar-item w3-button" name="categoria" id="categoria_{{ opcion_value }}"
                 value="{{ opcion_value }}">
                 {{ opcion_label }}
             </button>
+            {% endif %}
+
             {% endfor %}
         </div>
     </form>
@@ -59,9 +64,11 @@
     <!-- inicio barra de menu -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary nav fixed-top">
         <div class="container-fluid">
+
             <button type="button" onclick="w3_open()" style="border: none; background-color: transparent;">
                 <i class="fa-solid fa-bars fa-2xl" style="color: #ffffff;"></i>
             </button>
+
             <div class="d-flex" style="padding-left: 2%; padding-right: 2%; color: white;">
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'app/' %}img/LOGO_BLANCO.png " style="height: 4rem" alt="N/A">
@@ -77,42 +84,52 @@
 
                 <div class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <a class="navbar-brand" aria-current="page" href="{% url 'categoria' %}">Productos |</a>
+
                     {% comment %}<a class="navbar-brand" aria-current="page" href="#">Cuenta |</a> {% endcomment %}
-                    {% if user.is_staff %}
-                    <a class="navbar-brand" href="{% url 'index_admin' %}">Ir al index de administrador</a>
-                    {% endif %}
+
 
                 </div>
                 <form method="GET" action="{% url 'categoria' %}" id="fprincipal">
                     {% csrf_token %}
-                    
+                    <div class="search-bar">
                         {{ formbusqueda.busqueda }}
-                    
-                    <button style="position: rigth" type="submit">Buscar</button>
+
+                        <div class="btnbusqueda">
+                            <button type="submit">
+                                <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #8f8f8f;"></i>
+                            </button>
+                        </div>
+                    </div>
 
                 </form>
-                <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
-                    <i class="fa-solid fa-cart-shopping fa-xl"></i>
-                    <p>Carro de compra</p>
-                </a>
-
-                <div style="position: rigth">
-                    {% if user.is_staff %}
-                    <a class="navbar-brand" href="{% url 'logout' %}"><i
-                            class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
-
-                    {% elif user.is_authenticated %}
-                    <a class="navbar-brand" href="{% url 'perfil_usuario' %}">
-                        <i class="fa-solid fa-user fa-xl" style="color: #ffffff;"></i>
+                <div class="d-inline-flex contenido_nav">
+                    <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
+                        <i class="fa fa-cart-plus fa-xl"></i>
+                        <p class="m-0">Carro de compra</p>
                     </a>
-                    <a class="navbar-brand" href="{% url 'logout' %}"><i
-                            class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
 
-                    {% else %}
-                    <a class="navbar-brand" href="{% url 'loginn' %}"><i
-                            class="fa-solid fa-right-to-bracket fa-2xl"></i></i></a>
-                    {% endif %}
+                    <div style="margin-left: 2%;" class="d-inline-flex">
+                        {% if user.is_staff %}
+                        <a class="navbar-brand" href="{% url 'index_admin' %}">Ir a Admin</a>
+                        {% endif %}
+                        {% if user.is_staff %}
+                        <a class="navbar-brand" href="{% url 'logout' %}">
+                            <i class="fa fa-sign-out fa-xl"></i>
+                        </a>
+
+                        {% elif user.is_authenticated %}
+                        <a class="navbar-brand" href="{% url 'perfil_usuario' %}">
+                            <i class="fa fa-user fa-xl" style="color: #ffffff;"></i>
+                        </a>
+                        <a class="navbar-brand" href="{% url 'logout' %}">
+                            <i class="fa fa-sign-out fa-xl"></i>
+                        </a>
+                        {% else %}
+                        <a class="navbar-brand" href="{% url 'loginn' %}">
+                            <i class="fa fa-sign-in fa-xl"></i>
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
 
             </div>

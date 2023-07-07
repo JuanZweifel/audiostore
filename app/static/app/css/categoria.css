@@ -14,13 +14,13 @@ body {
 
 #id_categoria {
     font-family: sans-serif;
-    border-radius: 5px;
+    border-radius: 15px;
     height: 2.5rem;
 }
 
 #id_marca {
     font-family: sans-serif;
-    border-radius: 5px;
+    border-radius: 15px;
     height: 2.5rem;
 }
 
