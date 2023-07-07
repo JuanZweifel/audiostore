@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required,permission_required
 from django.http.response import JsonResponse
 from .models import Producto, Cliente
-from .models import Producto,Carrito,Pedido
+from .models import Producto,Carrito,Pedido, DetallePedido
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .forms import LoginForm, frmCrearCuenta, frmPerfilCliente, frmModifDatosCliente
@@ -307,22 +307,28 @@ def carrito(request):
         'total':total,
         'cantidad':cantidad_items
     }
+
     return render(request, 'app/usuario/carroCompra.html', data)
 
-@login_required
-def addCarrito(request, id):
+@login_required(login_url="loginn")
+def addCarrito(request, id, cantidad_pag):
     user_cl = request.user
     producto = get_object_or_404(Producto, id_producto = id)
     carro_cliente = Carrito.objects.filter(usuario = user_cl)
-    producto_cliente = carro_cliente.filter(producto = producto.nom_producto)
-    if producto_cliente.count() >= 1:
-        producto_carro = producto_cliente.get(producto = producto.nom_producto)
-        cantidad = producto_carro.cantidad
-        producto_carro.cantidad = cantidad + 1
-        producto_carro.save()
+    producto_cliente = carro_cliente.filter(id_producto = producto.id_producto)
+    if producto.stock > 0:
+        if producto_cliente.count() >= 1:
+            producto_carro = producto_cliente.get(id_producto = producto.id_producto)
+            cantidad = producto_carro.cantidad
+            producto_carro.cantidad = cantidad + cantidad_pag
+            producto_carro.save()
+            messages.success(request,"Se ha sumado el producto a su carro")
+        else:
+            item = Carrito(usuario=user_cl,id_producto=producto.id_producto, producto=producto.nom_producto, precio=producto.precio, cantidad=cantidad_pag)
+            item.save()
+            messages.error(request,"Producto añadido al carro correctamente")
     else:
-        item = Carrito(usuario=user_cl,producto=producto.nom_producto, precio=producto.precio, cantidad=1)
-        item.save()
+        messages.success(request,"No hay stock del producto")
     return redirect(to='categoria')
 
 @login_required
@@ -339,13 +345,25 @@ def checkout(request):
     if request.method == "POST":
         form = frmPago(data=request.POST)
         carrito_filas = Carrito.objects.filter(usuario = request.user)
-        for fila in carrito_filas.values():
-            Pedido.objects.create(**fila)
+        #Creacion de la instancia en Pedido
+        pedido_usu = Pedido(usuario=request.user)
+        pedido_usu.save()
+        #Rellenado del DetallePedido con la intancia Pedido
+        for fila in carrito_filas:
+            detalle_pedido = DetallePedido(pedido=pedido_usu,id_producto=fila.id_producto, producto=fila.producto, precio=fila.precio, cantidad=fila.cantidad)
+            detalle_pedido.save()
+            producto_carro = fila.id_producto
+            producto = Producto.objects.get(id_producto=producto_carro)
+            cantidad = producto.stock
+            producto.stock = cantidad - fila.cantidad
+            producto.save()
+        
         items.delete()
         return redirect(to="index")# Cambiar a "pedidos usuario" cuando este hecho
         
     else:
         form = frmPago()
+
     context = {
         'items':items,
         'total':total,
@@ -356,6 +374,34 @@ def checkout(request):
 @staff_member_required(login_url="loginn")
 def adminPedido(request):
     return render(request, 'app/admin/adminPedido.html')
+
+@staff_member_required(login_url="loginn")
+def adminPedidoDetalle(request, id):
+    items = DetallePedido.objects.filter(pedido=id)
+    total = 0
+    for item in items:
+        suma = item.cantidad * item.precio
+        total = total + suma
+
+    context = {
+        "items": items,
+        "total": total
+    }
+    return render(request, 'app/admin/adminPedidoDetalle.html', context)
+
+@login_required(login_url="loginn")
+def pedidoDetalle(request, id):
+    items = DetallePedido.objects.filter(pedido=id)
+    total = 0
+    for item in items:
+        suma = item.cantidad * item.precio
+        total = total + suma
+
+    context = {
+        "items": items,
+        "total": total
+    }
+    return render(request, 'app/usuario/pedidoDetalle.html', context)
 
 @staff_member_required(login_url="loginn")
 def lista_pedidos(info):
@@ -382,9 +428,23 @@ def lista_pedidos_usuario(request):
 @staff_member_required(login_url="loginn")
 def removePedido(request, id):
     item = get_object_or_404(Pedido,id=id)
+    detalles_filas = DetallePedido.objects.filter(pedido_id = id)
+
+    for fila in detalles_filas:
+        producto = Producto.objects.get(id_producto=fila.id_producto)
+        cantidad = producto.stock
+        producto.stock = cantidad + fila.cantidad
+        producto.save()
     item.delete()
-    messages.success(request,"Producto eliminado correctamente")  
+    messages.success(request,"Pedido eliminado correctamente")  
     return redirect(to="adminPedido")
+
+@login_required(login_url="loginn")
+def removePedidoUser(request, id):
+    item = get_object_or_404(Pedido,id=id)
+    item.delete()
+    messages.success(request,"Pedido eliminado correctamente")  
+    return redirect(to="usuarioPedido")
 
 @staff_member_required(login_url="loginn")
 def updatePedido(request, id):
@@ -508,7 +568,7 @@ def removeCategoria(request, id):
     messages.success(request,"No se pudo eliminar la categoria")
     
     try:
-        cat = Producto.objects.get(categoria=item)
+        cat = Producto.objects.filter(categoria=item)
         
     except Producto.DoesNotExist:
         item.delete()
@@ -578,7 +638,7 @@ def removeMarca(request, id):
     
     messages.success(request,"No se pudo eliminar la marca") 
     try:
-        pro = Producto.objects.get(marca=item)
+        pro = Producto.objects.filter(marca=item)
         
     except Producto.DoesNotExist:
         item.delete()

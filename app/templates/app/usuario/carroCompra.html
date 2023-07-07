@@ -41,27 +41,17 @@
                                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                                     <!-- Quantity -->
                                     <div class="d-flex mb-4" style="max-width: 300px">
-                                        <button class="btn btn-primary px-3 me-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
                                         <div class="form-outline">
-                                            <input id="cantidad-{{forloop.counter}}" min="0" name="quantity" value="{{producto.cantidad}}" type="number"
+                                            <input id="cantidad-{{forloop.counter}}" name="quantity" value="{{producto.cantidad}}" disabled
                                                 class="form-control" />
                                             <label class="form-label" for="cantidad-{{forloop.counter}}">Cantidad</label>
                                         </div>
-
-                                        <button class="btn btn-primary px-3 ms-2"
-                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
                                     </div>
                                     <!-- Quantity -->
 
                                     <!-- Price -->
                                     <p class="text-start text-md-center">
-                                        <strong>{{producto.precio}}</strong>
+                                        <strong>Precio: ${{producto.precio}}</strong>
                                     </p>
                                     <!-- Price -->
                                 </div>
@@ -129,8 +119,13 @@
                                     <span><strong>${{total}}</strong></span>
                                 </li>
                             </ul>
-                            <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href={% url 'checkout' %}
-                                role="button">Pagar</a>
+                            {% if not items %}
+                                <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href=""
+                                    role="button">Pagar</a>
+                            {% else %}
+                                <a name="pagar" id="pagar" class="btn btn-primary btn-lg btn-block" href={% url 'checkout' %}
+                                    role="button">Pagar</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
