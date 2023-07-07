@@ -17,6 +17,8 @@ from .models import Producto, ImagenProducto, Marca, Categoria
 from .forms import frmProducto, frmImagen, ImageFormSet, frmCategoria, frmMarca
 from django.http.response import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 def index(request):
@@ -584,3 +586,19 @@ def removeMarca(request, id):
     
     
     return redirect(to="marcas")
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Su contraseña a sido cambiada con exito!')
+            return redirect('logout')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'registration/change_password.html', {
+        'form': form
+    })

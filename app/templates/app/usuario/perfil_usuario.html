@@ -18,6 +18,8 @@
                         <a href="{% url 'modificar_usuario' cliente.run %}">Modificar datos</a>
                         <br>
                         <a href="{% url 'usuarioPedido' %}">Ver pedidos</a>
+                        <br>
+                        <a href="{% url 'change_password' %}">Cambiar clave</a>
                     </div>
 
                     <div class="div-2" style="text-align: center;">
@@ -32,10 +34,10 @@
                     </div>
                     <div class="div-2" style="height: 100%;">
                         {% if user.is_authenticated %}
-                        <p>Nombres: {{cliente.primer_nombre}} {{cliente.segundo_nombre}}</p>
-                        <p>Apellidos: {{cliente.apellido_paterno}} {{cliente.apellido_materno}}</p>
-                        <p>Run: {{cliente.run}}
-                        <p>E-mail: {{cliente.correo}}</p>
+                        <p><strong>Nombres:</strong> {{cliente.primer_nombre}} {{cliente.segundo_nombre}}</p>
+                        <p><b>Apellidos:</b> {{cliente.apellido_paterno}} {{cliente.apellido_materno}}</p>
+                        <p><b>Run:</b> {{cliente.run}}
+                        <p><b>E-mail:</b> {{cliente.correo}}</p>
                         {% endif %}
                     </div>
                 </div>
