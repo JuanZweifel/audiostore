@@ -86,11 +86,11 @@
                 </div>
                 <form method="GET" action="{% url 'categoria' %}" id="fprincipal">
                     {% csrf_token %}
-                    <div>
-                        <label class="d-inline" for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
+                    
                         {{ form.busqueda }}
-                    </div>
-                    <button class="d-inline" type="submit">Buscar</button>
+                    
+                    <button style="position: rigth" type="submit">Buscar</button>
+
                 </form>
                 <a class="celular navbar-brand" href="{% url 'carro' %}" style="margin-left: 2%;">
                     <i class="fa-solid fa-cart-shopping fa-xl"></i>
