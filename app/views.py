@@ -302,6 +302,13 @@ def carrito(request):
     items = Carrito.objects.filter(usuario = request.user)
     cantidad_items = Carrito.objects.filter(usuario = request.user).count()
     total = sum(item.precio * item.cantidad for item in items)
+
+    for producto in items:
+        imagen = ImagenProducto.objects.filter(producto=producto.id_producto)
+        
+        if imagen.exists():
+            producto.img=imagen[0]
+
     data = {
         'items':items,
         'total':total,
