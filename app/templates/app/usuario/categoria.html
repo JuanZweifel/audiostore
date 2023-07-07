@@ -97,7 +97,13 @@
                         <div class="col-lg-3 col-md-6">
                             <a href="{% url 'detalle_producto' producto.id_producto %}">
                                 <div class="card mt-2 cardproduct">
+                                    {% if producto.imagen %}
                                     <img src="media/{{producto.imagen}}" class="card-img-top" alt="N/A">
+                                    {% else %}
+                                        <img src="{% static 'app/' %}img/not_found.png" class="card-img-top" alt="N/A">
+                                    {% endif %}
+
+                                    
                                     <div class="card-body cardp">
                                         <h3 class="card-title text-center"
                                             style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}

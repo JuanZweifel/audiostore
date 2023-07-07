@@ -41,7 +41,7 @@
             <button type="button" class="w3-bar-item w3-button w3-xxlarge" onclick="w3_close()">Cerrar &times;</button>
 
 
-            {% for opcion_value, opcion_label in form.categoria.field.choices %}
+            {% for opcion_value, opcion_label in formbusqueda.categoria.field.choices %}
             <button type="submit" class="w3-bar-item w3-button" name="categoria" id="categoria_{{ opcion_value }}"
                 value="{{ opcion_value }}">
                 {{ opcion_label }}

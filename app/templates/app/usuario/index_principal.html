@@ -55,7 +55,12 @@
                     <div class="col-lg-3 col-sm-6">
                         <a href="{% url 'detalle_producto' producto.id_producto %}" class="linkdiv">
                             <div class="card mt-sm-4 mt-2">
-                                <img class="card-img-top imagen" src="media/{{producto.imagen}}" alt="Card image">
+                                {% if producto.imagen %}
+                                    <img class="card-img-top imagen" src="media/{{producto.imagen}}" alt="Card image">
+                                {% else %}
+                                    <img class="card-img-top imagen" src="{% static 'app/' %}img/not_found.png" alt="Card image">
+                                {% endif %}
+                                
                                 <div class="card-body cardp">
                                     <h4 class="card-title" style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}</h4>
                                     <p class="card-text" style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>

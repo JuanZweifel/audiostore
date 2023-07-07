@@ -23,7 +23,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
 def index(request):
     productos = Producto.objects.all()
-    form = BusquedaForm(request.GET)
+    formbusqueda = BusquedaForm(request.GET)
     for producto in productos:
         img = ImagenProducto.objects.filter(producto=producto)
         
@@ -31,7 +31,7 @@ def index(request):
             producto.imagen=img[0]
         
     context= {
-        'form':form,
+        'formbusqueda':formbusqueda,
         'productos':productos
     }
     
@@ -76,6 +76,7 @@ def categoria(request):
 
 def detalle_producto(request, id):
     producto = get_object_or_404(Producto, id_producto = id)
+    formbusqueda = BusquedaForm(request.GET)
     
     imagenes = ImagenProducto.objects.filter(producto=producto)
     imagen1 = None
@@ -91,6 +92,7 @@ def detalle_producto(request, id):
     
     
     context= {
+        'formbusqueda':formbusqueda,
         'producto':producto,
         'imagen1':imagen1,
         'imagen2':imagen2,
@@ -238,6 +240,7 @@ def lista_productos(_request):
 
 
 def login_view(request):
+    formbusqueda = BusquedaForm(request.GET)
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
@@ -254,13 +257,17 @@ def login_view(request):
     else:
         form = LoginForm()
     
-    return render(request, 'registration/loginn.html', {'form': form})
+    
+    
+    return render(request, 'registration/loginn.html', {'form': form, 'formbusqueda':formbusqueda})
 
 def crear_cuenta(request):
     formext=frmCrearCuenta(request.POST or None)
     formnormal=frmPerfilCliente(request.POST or None)
+    formbusqueda = BusquedaForm(request.GET)
 
     contexto={
+        'formbusqueda':formbusqueda,
         "form":formext,
         "fuser":formnormal
         
@@ -288,9 +295,11 @@ def crear_cuenta(request):
 
 @login_required
 def perfil_usuario(request):
+    formbusqueda = BusquedaForm(request.GET)
     usuario=request.user
     cliente=Cliente.objects.get(usuario=usuario)
     contexto={
+        'formbusqueda':formbusqueda,
         "cliente":cliente
     }
     
@@ -300,9 +309,11 @@ def perfil_usuario(request):
 @login_required
 def modificar_usuario(request,id):
     modificar=get_object_or_404(Cliente,run=id)
+    formbusqueda = BusquedaForm(request.GET)
     
     form = frmModifDatosCliente(data=request.POST or None, instance=modificar)
     contexto={
+        'formbusqueda':formbusqueda,
         "form":form,
         "modificar":modificar
     }
@@ -321,7 +332,7 @@ def carrito(request):
     items = Carrito.objects.filter(usuario = request.user)
     cantidad_items = Carrito.objects.filter(usuario = request.user).count()
     total = sum(item.precio * item.cantidad for item in items)
-
+    formbusqueda = BusquedaForm(request.GET)
     for producto in items:
         imagen = ImagenProducto.objects.filter(producto=producto.id_producto)
         
@@ -329,6 +340,7 @@ def carrito(request):
             producto.img=imagen[0]
 
     data = {
+        'formbusqueda':formbusqueda,
         'items':items,
         'total':total,
         'cantidad':cantidad_items
@@ -417,6 +429,7 @@ def adminPedidoDetalle(request, id):
 
 @login_required(login_url="loginn")
 def pedidoDetalle(request, id):
+    formbusqueda = BusquedaForm(request.GET)
     items = DetallePedido.objects.filter(pedido=id)
     total = 0
     for item in items:
@@ -424,6 +437,7 @@ def pedidoDetalle(request, id):
         total = total + suma
 
     context = {
+        'formbusqueda':formbusqueda,
         "items": items,
         "total": total
     }
@@ -440,7 +454,12 @@ def lista_pedidos(info):
 
 @login_required
 def usuarioPedido(request):
-    return render(request, 'app/usuario/pedido_usuario.html')
+    formbusqueda = BusquedaForm(request.GET)
+    context={
+        'formbusqueda':formbusqueda
+    }
+    
+    return render(request, 'app/usuario/pedido_usuario.html',context)
 
 @login_required
 def lista_pedidos_usuario(request):
@@ -683,6 +702,7 @@ def removeMarca(request, id):
 
 @login_required
 def change_password(request):
+    formbusqueda = BusquedaForm(request.GET)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -693,5 +713,4 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'registration/change_password.html', {
-        'form': form
-    })
+        'form': form, 'formbusqueda':formbusqueda})
