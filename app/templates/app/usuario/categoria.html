@@ -1,4 +1,4 @@
-{% extends '../usuario/plantilla.html' %}
+{% extends '../usuario/plantillabusqueda.html' %}
 {% load static %}
 
 {% block title %}
@@ -15,7 +15,21 @@
 
 {% block body %}
 
-    <div class="container-fluid">
+<div class="container-fluid">
+    {% comment %} <form method="GET" action="{% url 'categoria' %}">
+        {% csrf_token %} {% endcomment %}
+        {% comment %} <div>
+            <label for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
+            {{ form.busqueda }}
+        </div> {% endcomment %}
+        {% comment %} <div>
+            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+            {{ form.categoria }}
+        </div> {% endcomment %}
+        {% comment %} <button type="submit">Buscar</button> {% endcomment %}
+
+
+
         <div class="row">
             <!-- Filtro -->
             <div class="col-lg-3 col-md-3 col-sm-12">
@@ -32,6 +46,7 @@
                                 Marcas <i class="fa-solid fa-caret-down float-end lh-base"></i>
                             </button>
                             <ul class="dropdown-menu w-100" aria-labelledby="dropdownMarcaButton">
+                                
                                 <li><a class="dropdown-item" href="#">Marca 1</a></li>
                                 <li><a class="dropdown-item" href="#">Marca 2</a></li>
                                 <li><a class="dropdown-item" href="#">Marca 3</a></li>
@@ -43,12 +58,33 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Categoria <i class="fa-solid fa-caret-down float-end lh-base"></i>
                             </button>
-                            <ul class="dropdown-menu w-100" aria-labelledby="dropdownCategoriaButton">
-                                <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                                <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                                <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                            <ul class="dropdown-menu w-100" type="submit" aria-labelledby="dropdownCategoriaButton">
+                                {% for opcion_value, opcion_label in form.categoria.field.choices %}
+                                <button type="submit" class="dropdown-item" name="categoria"
+                                    id="categoria_{{ opcion_value }}" value="{{ opcion_value }}">
+                                    {{ opcion_label }}
+                                </button>
+                                {% endfor %}
                             </ul>
                         </div>
+                        {% comment %} <div>
+                            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+                            {{ form.categoria}}
+                        </div>
+                        <div>
+                            <label for="{{ form.marca.id_for_label }}">Marca:</label>
+                            {{ form.marca }}
+                        </div> {% endcomment %}
+
+                        <div>
+                            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+                            {{ form.categoria }}
+                        </div>
+                        <div>
+                            <label for="{{ form.marca.id_for_label }}">Marca:</label>
+                            {{ form.marca }}
+                        </div>
+
                         </p>
                     </div>
                 </div>
@@ -63,8 +99,11 @@
                                 <div class="card mt-2 cardproduct">
                                     <img src="media/{{producto.imagen}}" class="card-img-top" alt="N/A">
                                     <div class="card-body cardp">
-                                        <h3 class="card-title text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}</h3>
-                                        <p class="card-subtitle text-center" style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>
+                                        <h3 class="card-title text-center"
+                                            style="text-overflow: ellipsis; overflow: hidden;">{{producto.nom_producto}}
+                                        </h3>
+                                        <p class="card-subtitle text-center"
+                                            style="text-overflow: ellipsis; overflow: hidden;">{{producto.marca}}</p>
                                         <hr class="my-2" />
                                         <p class="card-text text-center">{{producto.precio}}</p>
                                     </div>
@@ -76,5 +115,24 @@
                 </div>
             </div>
         </div>
-    </div>
-    {% endblock body %}
+    </form>
+</div>
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var categoriaSelect = document.getElementById('{{ form.categoria.auto_id }}');
+        var marcaSelect = document.getElementById('{{ form.marca.auto_id }}');
+
+        categoriaSelect.addEventListener('change', function () {
+            document.getElementById('fprincipal').submit();
+        });
+
+        marcaSelect.addEventListener('change', function () {
+            document.getElementById('fprincipal').submit();
+        });
+    });
+</script>
+{% endblock script %}
+
+{% endblock body %}

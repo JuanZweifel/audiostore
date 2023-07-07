@@ -63,5 +63,13 @@ class frmMarca(forms.ModelForm):
     class Meta:
         model = Marca
         fields = ["id_marca", "nom_marca"]
+        
+        
+        
+class BusquedaForm(forms.Form):
+    busqueda = forms.CharField(max_length=100, required=False)
+    categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), required=False)
+    marca = forms.ModelChoiceField(queryset=Marca.objects.all(), required=False)
+
 
 ImageFormSet = formset_factory(frmImagen, extra=0,max_num=5, can_delete=True, can_delete_extra=True)

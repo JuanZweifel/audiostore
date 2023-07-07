@@ -14,7 +14,7 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.forms import formset_factory, modelformset_factory
 from .models import Producto, ImagenProducto, Marca, Categoria
-from .forms import frmProducto, frmImagen, ImageFormSet, frmCategoria, frmMarca
+from .forms import frmProducto, frmImagen, ImageFormSet, frmCategoria, frmMarca, BusquedaForm
 from django.http.response import JsonResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import update_session_auth_hash
@@ -23,7 +23,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
 def index(request):
     productos = Producto.objects.all()
-    
+    form = BusquedaForm(request.GET)
     for producto in productos:
         img = ImagenProducto.objects.filter(producto=producto)
         
@@ -31,6 +31,7 @@ def index(request):
             producto.imagen=img[0]
         
     context= {
+        'form':form,
         'productos':productos
     }
     
@@ -41,7 +42,24 @@ def index_admin(request):
     return render(request, 'app/admin/index_admin.html')
 
 def categoria(request):
+    form = BusquedaForm(request.GET)
     productos = Producto.objects.all()
+
+    if form.is_valid():
+        busqueda = form.cleaned_data.get('busqueda')
+        categoria_id = form.cleaned_data.get('categoria')
+        marca_id = form.cleaned_data.get('marca')
+        
+        
+        if busqueda:
+            productos = productos.filter(nom_producto__icontains=busqueda)
+
+        if categoria_id:
+            productos = productos.filter(categoria_id=categoria_id)
+    
+        if marca_id:
+            productos = productos.filter(marca_id=marca_id)
+    
     
     for producto in productos:
         img = ImagenProducto.objects.filter(producto=producto)
@@ -50,6 +68,7 @@ def categoria(request):
             producto.imagen=img[0]
         
     context= {
+        'form':form,
         'productos':productos
     }
     
