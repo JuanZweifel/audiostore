@@ -87,7 +87,7 @@
                 <form method="GET" action="{% url 'categoria' %}" id="fprincipal">
                     {% csrf_token %}
                     
-                        {{ form.busqueda }}
+                        {{ formbusqueda.busqueda }}
                     
                     <button style="position: rigth" type="submit">Buscar</button>
 
