@@ -215,7 +215,7 @@ def eliminarproducto(request,id):
     producto.delete()
     
     messages.success(request,"Producto eliminado correctamente")
-    return redirect(to="categorias")
+    return redirect(to="productos")
 
 @staff_member_required(login_url="loginn")
 def productos(request):
