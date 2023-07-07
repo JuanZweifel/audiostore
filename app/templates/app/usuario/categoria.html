@@ -16,8 +16,8 @@
 {% block body %}
 
 <div class="container-fluid">
-        {% comment %} <form method="GET" action="{% url 'categoria' %}">
-            {% csrf_token %} {% endcomment %}
+    {% comment %} <form method="GET" action="{% url 'categoria' %}">
+        {% csrf_token %} {% endcomment %}
         {% comment %} <div>
             <label for="{{ form.busqueda.id_for_label }}">Búsqueda:</label>
             {{ form.busqueda }}
@@ -46,6 +46,7 @@
                                 Marcas <i class="fa-solid fa-caret-down float-end lh-base"></i>
                             </button>
                             <ul class="dropdown-menu w-100" aria-labelledby="dropdownMarcaButton">
+                                
                                 <li><a class="dropdown-item" href="#">Marca 1</a></li>
                                 <li><a class="dropdown-item" href="#">Marca 2</a></li>
                                 <li><a class="dropdown-item" href="#">Marca 3</a></li>
@@ -57,12 +58,24 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Categoria <i class="fa-solid fa-caret-down float-end lh-base"></i>
                             </button>
-                            <ul class="dropdown-menu w-100" aria-labelledby="dropdownCategoriaButton">
-                                <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                                <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                                <li><a class="dropdown-item" href="#">Categoria 3</a></li>
+                            <ul class="dropdown-menu w-100" type="submit" aria-labelledby="dropdownCategoriaButton">
+                                {% for opcion_value, opcion_label in form.categoria.field.choices %}
+                                <button type="submit" class="dropdown-item" name="categoria"
+                                    id="categoria_{{ opcion_value }}" value="{{ opcion_value }}">
+                                    {{ opcion_label }}
+                                </button>
+                                {% endfor %}
                             </ul>
                         </div>
+                        {% comment %} <div>
+                            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+                            {{ form.categoria}}
+                        </div>
+                        <div>
+                            <label for="{{ form.marca.id_for_label }}">Marca:</label>
+                            {{ form.marca }}
+                        </div> {% endcomment %}
+
                         <div>
                             <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
                             {{ form.categoria }}
@@ -71,6 +84,7 @@
                             <label for="{{ form.marca.id_for_label }}">Marca:</label>
                             {{ form.marca }}
                         </div>
+
                         </p>
                     </div>
                 </div>
@@ -103,5 +117,22 @@
         </div>
     </form>
 </div>
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var categoriaSelect = document.getElementById('{{ form.categoria.auto_id }}');
+        var marcaSelect = document.getElementById('{{ form.marca.auto_id }}');
+
+        categoriaSelect.addEventListener('change', function () {
+            document.getElementById('fprincipal').submit();
+        });
+
+        marcaSelect.addEventListener('change', function () {
+            document.getElementById('fprincipal').submit();
+        });
+    });
+</script>
+{% endblock script %}
 
 {% endblock body %}
