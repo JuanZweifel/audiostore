@@ -311,7 +311,7 @@ def carrito(request):
     return render(request, 'app/usuario/carroCompra.html', data)
 
 @login_required(login_url="loginn")
-def addCarrito(request, id):
+def addCarrito(request, id, cantidad_pag):
     user_cl = request.user
     producto = get_object_or_404(Producto, id_producto = id)
     carro_cliente = Carrito.objects.filter(usuario = user_cl)
@@ -320,11 +320,11 @@ def addCarrito(request, id):
         if producto_cliente.count() >= 1:
             producto_carro = producto_cliente.get(id_producto = producto.id_producto)
             cantidad = producto_carro.cantidad
-            producto_carro.cantidad = cantidad + 1
+            producto_carro.cantidad = cantidad + cantidad_pag
             producto_carro.save()
             messages.success(request,"Se ha sumado el producto a su carro")
         else:
-            item = Carrito(usuario=user_cl,id_producto=producto.id_producto, producto=producto.nom_producto, precio=producto.precio, cantidad=1)
+            item = Carrito(usuario=user_cl,id_producto=producto.id_producto, producto=producto.nom_producto, precio=producto.precio, cantidad=cantidad_pag)
             item.save()
             messages.error(request,"Producto añadido al carro correctamente")
     else:
@@ -378,18 +378,28 @@ def adminPedido(request):
 @staff_member_required(login_url="loginn")
 def adminPedidoDetalle(request, id):
     items = DetallePedido.objects.filter(pedido=id)
+    total = 0
+    for item in items:
+        suma = item.cantidad * item.precio
+        total = total + suma
 
     context = {
-        "items": items
+        "items": items,
+        "total": total
     }
     return render(request, 'app/admin/adminPedidoDetalle.html', context)
 
 @login_required(login_url="loginn")
 def pedidoDetalle(request, id):
     items = DetallePedido.objects.filter(pedido=id)
+    total = 0
+    for item in items:
+        suma = item.cantidad * item.precio
+        total = total + suma
 
     context = {
-        "items": items
+        "items": items,
+        "total": total
     }
     return render(request, 'app/usuario/pedidoDetalle.html', context)
 

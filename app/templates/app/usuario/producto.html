@@ -85,7 +85,7 @@
                                 </button>
 
                                 <div class="form-outline ">
-                                    <input id="form1" min="0" name="quantity" value="1" type="number"
+                                    <input id="cantidad" min="0" name="quantity" value="1" type="number"
                                         class="form-control" />
                                 </div>
 
@@ -97,7 +97,7 @@
 
                             <label for="stock">Stock disponible {{producto.stock}}</label>
                             <br>
-                            <a href="{% url 'addCarrito' producto.id_producto%}" class="btn btn-primary btn-lg btn-comprar">Añadir al carro</a>
+                            <a href="#" onclick="removePedido()" class="btn btn-primary btn-lg btn-comprar">Añadir al carro</a>
                         </div>
 
                     </div>
@@ -116,9 +116,19 @@
         </div>
     </section>
     <script>
-        var valor = document.getElementById("precio").textContent;
-        const res = valor.replace(/\D/g, "");
-        const peso = document.getElementById("precio").textContent;
+        function removePedido(){
+            var id_producto = {{producto.id_producto}}
+            var cantidad = document.getElementById(("cantidad")).value
+            if(cantidad<={{producto.stock}}){
+                window.location.href = "/addCarrito/"+id_producto+"/"+cantidad
+            }else{
+                Swal.fire({
+                    "title":"Sin stock suficiente",
+                    "text":"Intente cambiar la cantidad pedida",
+                    "icon":"info",
+                })
+            }
+        }
     </script>
 
     <script src="{% static 'app/js/gallery.js'%}"></script>
