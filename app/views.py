@@ -555,6 +555,7 @@ def eliminar_cliente(request,id):
         usuario.delete()
         messages.success(request,"Cliente eliminado correctamente")
         return redirect(to="clientes_admin")
+
     
     return render(request,"app/admin/eliminar_cliente.html",contexto)
 
@@ -619,12 +620,11 @@ def removeCategoria(request, id):
     item = get_object_or_404(Categoria,id_cat=id)
     messages.success(request,"No se pudo eliminar la categoria")
     
-    try:
-        cat = Producto.objects.filter(categoria=item)
-        
-    except Producto.DoesNotExist:
+    if not Producto.objects.filter(categoria=item):
         item.delete()
-        messages.success(request,"Categoria eliminada correctamente")
+        messages.success(request,"Categoria eliminada correctamente") 
+    else:
+        messages.success(request,"No se pudo eliminar la categoria") 
     
     return redirect(to="categorias")
 
@@ -688,17 +688,28 @@ def modificarmarca(request,id):
 def removeMarca(request, id):
     item = get_object_or_404(Marca,id_marca=id)
     
-    messages.success(request,"No se pudo eliminar la marca") 
-    try:
-        pro = Producto.objects.filter(marca=item)
-        
-    except Producto.DoesNotExist:
+    if not Producto.objects.filter(marca=item):
         item.delete()
         messages.success(request,"Marca eliminada correctamente") 
-    
+    else:
+        messages.success(request,"No se pudo eliminar la marca") 
     
     return redirect(to="marcas")
 
+@staff_member_required(login_url="loginn")
+def removeCliente(request, id):
+    cliente=get_object_or_404(Cliente,run=id)
+    id = cliente.usuario_id
+    usuario=User.objects.get(id=id)
+
+    
+    if not Pedido.objects.filter(usuario_id=id):
+        usuario.delete()
+        messages.success(request,"Cliente eliminado correctamente") 
+    else:
+        messages.success(request,"No se puede eliminar al cliente") 
+    
+    return redirect(to="clientes_admin")
 
 @login_required
 def change_password(request):

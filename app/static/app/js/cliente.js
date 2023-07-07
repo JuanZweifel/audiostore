@@ -48,7 +48,7 @@ const listaclientes=async()=>{
                     <td>${cliente.correo}</td>
                     <td>
                     <a href="modificar_cliente/${cliente.run}" role="button" class="btn btn-primary text-light">Modificar</a>
-                    <a href="eliminar_cliente/${cliente.run}" role="button" class="btn btn-danger text-light">Eliminar</a> </td>
+                    <a href="#" role="button" onclick="removeCliente('${cliente.run}')" class="btn btn-danger text-light">Eliminar</a> </td>
                     </td>
                 </tr>`;
         });

@@ -10,7 +10,7 @@ from .views import perfil_usuario, modificar_usuario, removePedido, lista_pedido
 from .views import index, categoria, detalle_producto, index_admin, carrito, addCarrito, removeCarrito, checkout, usuarioPedido
 from .views import modificarproducto, eliminarproducto,productos
 from .views import index, categoria, detalle_producto, index_admin, crearproducto, lista_productos, change_password
-from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente, adminPedidoDetalle, pedidoDetalle, removePedidoUser
+from .views import clientes_admin, lista_clientes, modificar_cliente, eliminar_cliente, adminPedidoDetalle, pedidoDetalle, removePedidoUser, removeCliente
 
 
 
@@ -60,4 +60,6 @@ urlpatterns = [
     path(r'^password/$',change_password, name='change_password'),
     path('adminPedidoDetalle/<id>', adminPedidoDetalle, name='adminPedidoDetalle'),
     path('pedidoDetalle/<id>', pedidoDetalle, name='pedidoDetalle'),
+    path('removeCliente/<id>', removeCliente, name='removeCliente'),
+
 ]

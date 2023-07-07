@@ -53,4 +53,23 @@
 <script src="https://cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"></script>
 
 <script src="{% static 'app/js/cliente.js' %}"></script>
+
+<script>
+    function removeCliente(id){
+        Swal.fire({
+            "title":"¿Estas seguro?",
+            "text":"Esta accion no se puede deshacer",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"Cancelar",
+            "confirmButtonText":"Si, Eliminar",
+            "reverseButtons":true
+        })
+        .then(function(result) {
+            if(result.isConfirmed) {
+                window.location.href = "/removeCliente/"+id
+            }
+        })
+    }
+</script>
 {% endblock body %}

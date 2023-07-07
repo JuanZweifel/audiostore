@@ -59,7 +59,7 @@ class Pedido(models.Model):
     ESTADO = [
         ("R","Retirado"),("NR","No Retirado")
     ]
-    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     estado = models.CharField(null=False, choices=ESTADO, max_length=50, default="No Retirado")
 
 class DetallePedido(models.Model):
