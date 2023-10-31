@@ -20,12 +20,9 @@ function euro() {
     $.getJSON('https://mindicador.cl/api', function (data) {
         let euro;
         euro = data.euro.valor;
-
         // let casilla = parseInt(document.getElementById("precio").textContent);
         resul = (parseInt(res) / euro).toFixed(2);
-
         $("#precio").text('€' + resul)
-
     }).fail(function () {
         console.log('Error al consumir la API!');
     });
